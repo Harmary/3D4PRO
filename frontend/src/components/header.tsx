@@ -1,13 +1,38 @@
 import Logo from '../assets/Logo.svg';
 import Logo2 from '../assets/logo2.svg';
-import { Button, Container, FormControl, Grid, IconButton, InputAdornment, OutlinedInput } from '@mui/material';
+import { Button, Container, FormControl, Grid, IconButton, InputAdornment, InputBase, OutlinedInput, alpha, styled } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, NavLink } from 'react-router-dom';
+import theme from '../theme';
 
 type HeaderProps = {
     theme: string;
 }
+
+const WhiteTextField = styled(FormControl)({
+    '& .MuiOutlinedInput-input':{
+        color: theme.palette.primary.contrastText,
+    },
+    '& label.Mui-focused': {
+        color: '#72757E',
+    },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: theme.palette.primary.main,
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: '#72757E',
+        },
+        '&:hover fieldset': {
+            border: "#72757E solid 2px",
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: theme.palette.primary.main,
+        },
+    },
+});
+
 
 export default function Header(props: HeaderProps) {
     return <>
@@ -24,7 +49,7 @@ export default function Header(props: HeaderProps) {
                     </NavLink>
                     <Typography color={props.theme === "white" ? "16161A" : "#fffffe"} textAlign="center" variant='body1'>контакты</Typography>
                     <Grid item lg={6}>
-                        <FormControl size='small' fullWidth variant="outlined">
+                        {props.theme === "white" ? <FormControl size='small' fullWidth variant="outlined">
                             <OutlinedInput
                                 id="outlined-adornment-password"
                                 placeholder='Поиск'
@@ -40,7 +65,24 @@ export default function Header(props: HeaderProps) {
                                     </InputAdornment>
                                 }
                             />
-                        </FormControl>
+                        </FormControl> : <WhiteTextField size='small' fullWidth variant="outlined">
+                            <OutlinedInput
+                                id="outlined-adornment-password"
+                                placeholder='Поиск'
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            edge="end"
+                                            color='primary'
+                                        >
+                                            <SearchIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </WhiteTextField>}
+                        
                     </Grid>
 
                 </Grid>

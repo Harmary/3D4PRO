@@ -17,7 +17,7 @@ export default function FilterPanel() {
                 </Grid>
             </Grid>
             <Grid item>
-                <Dropdown name={"Cортировать"} menuItems={["По возрастанию цены", "По убыванию цены", "По возрастанию даты", "По убыванию даты"]} />
+                <Dropdown name={"Cортировать"} menuItems={["По возрастанию цены", "По убыванию цены", "Сначала новые", "Сначала старые"]} />
             </Grid>
             
 
