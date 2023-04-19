@@ -23,7 +23,7 @@ export default function Header(props: HeaderProps) {
                     <NavLink style={{textDecoration:"none"}} to="/shop">
                         <Typography color={props.theme === "white" ? "16161A" : "#fffffe"} textAlign="center" variant='body1'>магазин</Typography>
                     </NavLink>
-                    <Typography color={props.theme === "white" ? "16161A" : "#fffffe"} textAlign="center" variant='body1'>контакты</Typography>
+                    <Typography color={props.theme === "white" ? "16161A" : "#fffffe"} textAlign="center" variant='body1'>категории</Typography>
                     <Grid item lg={6}>
                         {props.theme === "white" ? <FormControl size='small' fullWidth variant="outlined">
                             <OutlinedInput
