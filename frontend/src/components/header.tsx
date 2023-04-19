@@ -1,38 +1,14 @@
 import Logo from '../assets/Logo.svg';
 import Logo2 from '../assets/logo2.svg';
-import { Button, Container, FormControl, Grid, IconButton, InputAdornment, InputBase, OutlinedInput, alpha, styled } from '@mui/material';
+import { Button, FormControl, Grid, IconButton, InputAdornment, InputBase, OutlinedInput, alpha, styled } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, NavLink } from 'react-router-dom';
-import theme from '../theme';
+import { WhiteTextField } from './whiteFormControll';
 
 type HeaderProps = {
     theme: string;
 }
-
-const WhiteTextField = styled(FormControl)({
-    '& .MuiOutlinedInput-input':{
-        color: theme.palette.primary.contrastText,
-    },
-    '& label.Mui-focused': {
-        color: '#72757E',
-    },
-    '& .MuiInput-underline:after': {
-        borderBottomColor: theme.palette.primary.main,
-    },
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: '#72757E',
-        },
-        '&:hover fieldset': {
-            border: "#72757E solid 2px",
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: theme.palette.primary.main,
-        },
-    },
-});
-
 
 export default function Header(props: HeaderProps) {
     return <>
