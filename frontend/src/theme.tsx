@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import './assets/fonts/Montserrat-Bold.ttf';
 // import '../public/fonts/Montserrat-SemiBold.ttf';
 // import '../public/fonts/OpenSans-SemiBold.ttf';
-// import '../public/fonts/OpenSans-Regular.ttf';
+import './assets/fonts/OpenSans-Regular.ttf';
 
 
 const theme = createTheme({
@@ -24,24 +24,39 @@ const theme = createTheme({
         h2: {
             fontFamily:"Montserrat",
             fontSize: '72px',
-            weight:700,
-            lineHeight: '95 %',
-            textAlign: 'center',
+            fontWeight:700,
+            lineHeight: '68px',
             letterSpacing: '0.015em',
-            color: '#fffffe',
+
+        },
+        h3: {
+            fontFamily:"Montserrat",
+            fontSize: '64px',
+            fontWeight:700,
+            lineHeight: '61px',
+            letterSpacing: '0.015em',
 
         },
         subtitle1: {
-            fontSize: 12,
+            fontFamily: "Montserrat",
+            fontSize: '32px',
+            fontWeight: 600,
+            lineHeight: '50px',
+            letterSpacing: '0.015em',
         },
         body1: {
             fontFamily: 'Open Sans',
-            textAlign: "center",
             fontStyle: "normal",
             fontWeight: 400,
             fontSize: "20px",
             lineHeight: "130 %",
-            color: "#FFFFFE"
+        },
+        body2: {
+            fontFamily: 'Open Sans',
+            fontStyle: "normal",
+            fontWeight: 400,
+            fontSize: "24px",
+            lineHeight: "130 %",
         },
         button: {
             fontFamily: 'Open Sans',
@@ -51,6 +66,14 @@ const theme = createTheme({
             lineHeight: "155.5 %",
             textTransform: "capitalize",
         },
+        caption: {
+            fontFamily: 'Open Sans',
+            fontStyle: "normal",
+            fontWeight: "regular",
+            fontSize: "16px",
+            lineHeight: "155.5 %",
+            textTransform: "capitalize",
+        }
     },
     components: {
         MuiCssBaseline: {

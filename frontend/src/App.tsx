@@ -4,17 +4,17 @@ import './App.css';
 import { Layout } from './layout/layout';
 import MainPage from './pages/main/main';
 import theme from './theme'
+import ShopPage from './pages/shop/shop';
 
 
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Layout>
           <Routes>
             <Route path='/' element={<MainPage />} />
+          <Route path='/shop' element={<Layout><ShopPage /></Layout>} />          
           </Routes>
-        </Layout>
       </ThemeProvider>
     </div>
   );

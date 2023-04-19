@@ -1,0 +1,66 @@
+
+[
+    {
+        "name": "Спутник",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque quod, aspernatur accusamus est facere labore fugit dolor deleniti voluptatum voluptatem ipsum rerum, dolorem quis voluptate quos maxime sit asperiores fugiat.",
+        "price": 30,
+        "renders": [
+            { "id": 0, "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Sputnik_asm.jpg"
+            },
+            { "id": 1, "url": "../../assets/images/ex_cardBack.png"
+            },
+            { "id": 2, "url": "../../assets/images/ex_cardBack.png"
+            }
+        ],
+        "textures": [
+            { "id": 0, "url": "../../assets/images/ex_cardBack.png"
+            },
+            { "id": 1, "url": "../../assets/images/ex_cardBack.png"
+            },
+            { "id": 2, "url": "../../assets/images/ex_cardBack.png"
+            }
+        ]
+    },
+    {
+        "name": "Тыковка",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque quod, aspernatur accusamus est facere labore fugit dolor deleniti voluptatum voluptatem ipsum rerum, dolorem quis voluptate quos maxime sit asperiores fugiat.",
+        "price": 30,
+        "renders": [
+            { "id": 0, "url": "https://images.free3d.com/imgd/l53/5df906eb26be8ba2728b4567/pumpkin_01.jpg"
+            },
+            { "id": 1, "url": "../../assets/images/ex_cardBack.png"
+            },
+            { "id": 2, "url": "../../assets/images/ex_cardBack.png"
+            }
+        ],
+        "textures": [
+            {"id": 0, "url": "../../assets/images/ex_cardBack.png"
+            },
+            { "id": 1,"url": "../../assets/images/ex_cardBack.png"
+            },
+            { "id": 2, "url": "../../assets/images/ex_cardBack.png"
+            }
+        ]
+    },
+    {
+        "name": "Городок",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque quod, aspernatur accusamus est facere labore fugit dolor deleniti voluptatum voluptatem ipsum rerum, dolorem quis voluptate quos maxime sit asperiores fugiat.",
+        "price": 30,
+        "renders": [
+            { "id": 0, "url": "https://p.turbosquid.com/ts-thumb/Kg/lceSEj/DLUYDpDU/1/png/1536400370/600x600/fit_q87/2140b982cfb9fd473fd41664926fd87e12456c53/1.jpg"
+            },
+            { "id": 1, "url": "../../assets/images/ex_cardBack.png"
+            },
+            { "id": 2, "url": "../../assets/images/ex_cardBack.png"
+            }
+        ],
+        "textures": [
+            {"id": 0, "url": "../../assets/images/ex_cardBack.png"
+            },
+            { "id": 1,"url": "../../assets/images/ex_cardBack.png"
+            },
+            { "id": 2, "url": "../../assets/images/ex_cardBack.png"
+            }
+        ]
+    }
+]
