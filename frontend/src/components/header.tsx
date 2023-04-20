@@ -3,7 +3,7 @@ import Logo2 from '../assets/logo2.svg';
 import { Button, FormControl, Grid, IconButton, InputAdornment, OutlinedInput} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link, NavLink } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { WhiteTextField } from './whiteFormControll';
 import MenuNavLink from './menuNavLink';
 
@@ -63,7 +63,8 @@ export default function Header(props: HeaderProps) {
                 </Grid>
             </Grid>
             <Grid item>
-                <Button size='medium' variant='contained'>Войти</Button>
+                <Button component={Link}
+                to="/login"  size='medium' variant='contained'>Войти</Button>
             </Grid>
         </Grid>
     </>

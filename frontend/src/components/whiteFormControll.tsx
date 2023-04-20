@@ -7,6 +7,9 @@ export const WhiteTextField = styled(FormControl)({
         color: theme.palette.primary.contrastText,
     },
     '& label.Mui-focused': {
+        color: theme.palette.primary.main,
+    },
+    '& label': {
         color: '#72757E',
     },
     '& .MuiInput-underline:after': {
@@ -23,4 +26,5 @@ export const WhiteTextField = styled(FormControl)({
             borderColor: theme.palette.primary.main,
         },
     },
+
 });

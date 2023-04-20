@@ -73,7 +73,6 @@ const theme = createTheme({
             fontWeight: "regular",
             fontSize: "16px",
             lineHeight: "155.5 %",
-            textTransform: "capitalize",
         }
     },
     components: {
