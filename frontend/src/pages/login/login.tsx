@@ -5,6 +5,7 @@ import { WhiteTextField } from '../../components/whiteFormControll'
 import { useState } from 'react';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { NavLink } from 'react-router-dom';
 
 export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -63,7 +64,7 @@ export default function LoginPage() {
                                 <Button size='large' fullWidth variant="contained">Войти</Button>
                                 <Grid item>
                                     <Typography mr={1} color={'#72757E'} variant='caption'>Нет аккаунта?</Typography>
-                                    <Link>Зарегистрируйтесь</Link>
+                                    <Link href='/register'>Зарегистрируйтесь</Link>
                                 </Grid>
                             </Grid>
                         </Grid>
