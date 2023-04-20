@@ -1,8 +1,9 @@
 import { createTheme } from '@mui/material/styles';
 import './assets/fonts/Montserrat-Bold.ttf';
-// import '../public/fonts/Montserrat-SemiBold.ttf';
-// import '../public/fonts/OpenSans-SemiBold.ttf';
+import './assets/fonts/Montserrat-SemiBold.ttf';
+import './assets/fonts/OpenSans-SemiBold.ttf';
 import './assets/fonts/OpenSans-Regular.ttf';
+import themecss from './theme.module.css';
 
 
 const theme = createTheme({
@@ -77,16 +78,7 @@ const theme = createTheme({
     },
     components: {
         MuiCssBaseline: {
-            styleOverrides: `
-        @font-face {
-          font-family: 'Montserrat';
-          font-style: bold;
-          font-display: swap;
-          font-weight: 700;
-          src: local('Montserrat'), local('Montserrat-Bold'), url('./assets/fonts/Montserrat-Bold.ttf') format('ttf');
-          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-        }
-      `,
+            styleOverrides: themecss,
         },
     },
 });

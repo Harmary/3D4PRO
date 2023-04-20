@@ -41,7 +41,7 @@ export default function ModalWindow(props: ModalWindowProps) {
                     </Grid>
                     <Grid md={5} item>
                         <Grid container>
-                            <Grid item>
+                            <Grid md={11} item>
                                 <Typography variant="h4" id="parent-modal-title">{props.model.name}</Typography>
                                 <Typography mt={3} variant="body1" color="#72757E" id="parent-modal-description">
                                     {props.model.description}
@@ -50,8 +50,8 @@ export default function ModalWindow(props: ModalWindowProps) {
                                     Текстуры
                                 </Typography>
                                 <Grid container mt={2} columnSpacing={2}>
-                                    {props.model.textures.map((texture) => (
-                                        <Grid item>
+                                    {props.model.textures.map((texture, key) => (
+                                        <Grid key={key} item>
                                             <div title={texture.url} style={{ background: "#2CB67D", width: 36, height: 36 }}></div>
                                         </Grid>
 

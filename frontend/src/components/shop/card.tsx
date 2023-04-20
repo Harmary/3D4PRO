@@ -1,4 +1,4 @@
-import { Grid, IconButton, Typography } from "@mui/material"
+import { Grid, IconButton, Paper, Typography } from "@mui/material"
 import { Model } from "../../contracts/model"
 import downloandIcn from "../../assets/images/icons/download.png"
 import { useState } from "react"
@@ -17,13 +17,13 @@ export default function Card(props: CardProps) {
 
 
     return <>
-        <div style={{
-            width: "360px",
-            height: "416px",
+        <Paper elevation={6} sx={{
+            width: 360,
+            height: 416,
             background: `url('${props.model.renders[0].url}') no-repeat`,
             backgroundSize: "cover",
             backgroundPosition: "center center",
-            borderRadius: "24px"
+            borderRadius: 3
         }} onClick={handleOpenModal} >
             <div style={{
                 width: "inherit",
@@ -44,7 +44,7 @@ export default function Card(props: CardProps) {
                 </Grid>
 
             </div>
-        </div>
+        </Paper>
         <ModalWindow setOpen={setModal} open={modal} model={props.model}/>
     </>
 }

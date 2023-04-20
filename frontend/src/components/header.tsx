@@ -1,10 +1,11 @@
 import Logo from '../assets/Logo.svg';
 import Logo2 from '../assets/logo2.svg';
-import { Button, FormControl, Grid, IconButton, InputAdornment, InputBase, OutlinedInput, alpha, styled } from '@mui/material';
+import { Button, FormControl, Grid, IconButton, InputAdornment, OutlinedInput} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, NavLink } from 'react-router-dom';
 import { WhiteTextField } from './whiteFormControll';
+import MenuNavLink from './menuNavLink';
 
 type HeaderProps = {
     theme: string;
@@ -12,7 +13,7 @@ type HeaderProps = {
 
 export default function Header(props: HeaderProps) {
     return <>
-        <Grid sx={{ pt: "44px", alignItems: "center" }} justifyContent="space-between" container>
+        <Grid sx={{ pt: 5, alignItems: "center" }} justifyContent="space-between" container>
             <Grid item lg={9}>
                 <Grid container alignItems={"center"} gap={"40px"}>
                     <Grid item lg={1}>
@@ -20,9 +21,7 @@ export default function Header(props: HeaderProps) {
                             <img alt="logo" width={38} height={38} src={props.theme === "white" ? Logo2 : Logo}></img>
                         </Link>
                     </Grid>
-                    <NavLink style={{textDecoration:"none"}} to="/shop">
-                        <Typography color={props.theme === "white" ? "16161A" : "#fffffe"} textAlign="center" variant='body1'>магазин</Typography>
-                    </NavLink>
+                    <MenuNavLink path="/shop" name='магазин' theme={props.theme}/>
                     <Typography color={props.theme === "white" ? "16161A" : "#fffffe"} textAlign="center" variant='body1'>категории</Typography>
                     <Grid item lg={6}>
                         {props.theme === "white" ? <FormControl size='small' fullWidth variant="outlined">

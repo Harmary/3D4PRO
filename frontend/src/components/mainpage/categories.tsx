@@ -4,7 +4,7 @@ const categories = ["Животные", "Транспорт","Люди","Арх�
 
 export default function Categories() {
     return <>
-        <Box sx={{ height: "744px", backgroundColor: "#7F5AF0", mt: "232px" }} >
+        <Box sx={{ height: 744, backgroundColor: "#7F5AF0", mt: 29 }} >
             <Box sx={{ display:"flex", pt: "234px", justifyContent:"center" }}> <Typography variant="h3" textAlign={"center"} color="#fffffe">Множество <br/> категорий</Typography></Box>
             <Grid container flexWrap={"nowrap"} overflow={"hidden"} mt={18} pb={2} gap={3}>
                 {categories.map((category) => (

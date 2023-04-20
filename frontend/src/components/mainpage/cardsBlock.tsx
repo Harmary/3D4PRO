@@ -27,13 +27,13 @@ const cardsContent = [
 export default function CardsBlock() {
     return <>
         <Container>
-            <Grid container mt="150px">
+            <Grid container mt={20}>
                 <Grid item lg={8}>
                     <Typography variant="h3" color="#16161A">Наше решение - помощь для вас</Typography>
                     <Typography mt="25px" variant="body2" color="#16161A">Наш магазин имеет ряд преимуществ</Typography>
                 </Grid>
             </Grid>
-            <Grid container columnSpacing={5} rowSpacing={5} mt={"70px"}>
+            <Grid container columnSpacing={5} rowSpacing={5} mt={9}>
                 {cardsContent.map((card) => (
                     <Grid key={card.title} item xs={12} md={8} lg={4}><Card title={card.title} image={card.img} text={card.text} /></Grid>
                 ))}

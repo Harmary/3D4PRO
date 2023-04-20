@@ -3,7 +3,7 @@ import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Grid, MenuItem } from '@mui/material';
+import { MenuItem } from '@mui/material';
 
 type DropdownProps = {
     menuItems: string[],
