@@ -32,7 +32,7 @@ export default function RegisterPage() {
                             <Grid direction={"column"} rowSpacing={2} container>
                                 <Grid item>
                                     <WhiteTextField fullWidth>
-                                        <TextField fullWidth label="Логин" />
+                                        <TextField fullWidth label="Имя" />
                                     </WhiteTextField>
                                 </Grid>
                                 <Grid item>
@@ -42,7 +42,7 @@ export default function RegisterPage() {
                                 </Grid>
                                 <Grid item>
                                     <WhiteTextField fullWidth>
-                                        <TextField fullWidth label="Имя" />
+                                        <TextField fullWidth label="Никнейм" />
                                     </WhiteTextField>
                                 </Grid>
                                 <Grid item>

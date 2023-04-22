@@ -31,7 +31,7 @@ export default function LoginPage() {
                             <Grid direction={"column"} rowSpacing={2} container>
                                 <Grid item>
                                     <WhiteTextField fullWidth>
-                                        <TextField fullWidth label="Логин" />
+                                        <TextField fullWidth label="Email" />
                                     </WhiteTextField>
                                 </Grid>
                                 <Grid item>
