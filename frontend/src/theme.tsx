@@ -59,14 +59,6 @@ const theme = createTheme({
             fontSize: "24px",
             lineHeight: "130 %",
         },
-        button: {
-            fontFamily: 'Open Sans',
-            fontStyle: "normal",
-            fontWeight: 600,
-            fontSize: "20px",
-            lineHeight: "155.5 %",
-            textTransform: "capitalize",
-        },
         caption: {
             fontFamily: 'Open Sans',
             fontStyle: "normal",
@@ -78,6 +70,20 @@ const theme = createTheme({
     components: {
         MuiCssBaseline: {
             styleOverrides: themecss,
+        },
+        MuiButton: {
+            styleOverrides:{
+                root: {
+                    fontFamily: 'Open Sans',
+                    fontStyle: "normal",
+                    fontWeight: 600,
+                    fontSize: "20px",
+                    lineHeight: "155.5 %",
+                    textTransform: "capitalize",
+                    disableRipple: true, // No more ripple, on the whole application 💣!
+                },
+            }
+           
         },
     },
 });
