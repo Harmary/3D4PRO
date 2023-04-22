@@ -35,7 +35,7 @@ export default function ModalWindow(props: ModalWindowProps) {
             aria-describedby="parent-modal-description"
         >
             <Box sx={{ ...style }}>
-                <Grid container>
+                <Grid container spacing={2}>
                     <Grid md={7} item>
                         <Viewer />
                     </Grid>
@@ -46,7 +46,7 @@ export default function ModalWindow(props: ModalWindowProps) {
                                 <Typography mt={3} variant="body1" color="#72757E" id="parent-modal-description">
                                     {props.model.description}
                                 </Typography>
-                                <Typography mt={10} variant="h6" id="parent-modal-description">
+                                <Typography mt={8} variant="h6" id="parent-modal-description">
                                     Текстуры
                                 </Typography>
                                 <Grid container mt={2} columnSpacing={2}>
@@ -58,7 +58,7 @@ export default function ModalWindow(props: ModalWindowProps) {
                                     ))}
                                 </Grid>
                             </Grid>
-                            <Grid mt={24} md={12} item>
+                            <Grid mt={20} md={12} item>
                                 <Grid container justifyContent={"space-between"} alignItems={"center"}>
                                     <Grid item><Typography variant="h4" id="parent-modal-title">{props.model.price}$</Typography></Grid>
                                     <Grid item><Button variant="contained">Купить</Button></Grid>

@@ -7,6 +7,8 @@ import theme from './theme'
 import ShopPage from './pages/shop/shop';
 import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
+import AccountPage from './pages/account/account';
+import AdminPanel from './pages/adminpanel/adminPanel';
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
           <Route path='/shop' element={<Layout><ShopPage /></Layout>} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
+          <Route path='/account' element={<Layout><AccountPage /></Layout>} />
+          <Route path='/adminpanel' element={<Layout><AdminPanel /></Layout>} />
         </Routes>
       </ThemeProvider>
     </div>
