@@ -1,4 +1,4 @@
-import { Avatar, Button, Grid, Typography } from "@mui/material";
+import { Avatar, Button, Grid, IconButton, Typography } from "@mui/material";
 import dummyGirlAvatar from "../../assets/images/dummygirlavatar.png"
 import dummyBoyAvatar from "../../assets/images/dummyboyavatar.png"
 import fakeData from "../../hardcoded_data/models.json"
@@ -13,7 +13,18 @@ export default function AccountPage() {
             <Grid item>
                 <Grid container gap={10} alignItems={"center"}>
                     <Grid item>
-                        <Avatar sx={{ width: 314, height: 314 }} alt="avatar" src={dummyBoyAvatar} />
+                        <input
+                            accept="image/*"
+                            id="contained-button-file"
+                            multiple
+                            style={{display:"none"}}
+                            type="file"
+                        />
+                        <label htmlFor="contained-button-file">
+                            <IconButton component="span">
+                                <Avatar sx={{ width: 314, height: 314 }} alt="avatar" src={dummyBoyAvatar} />
+                            </IconButton>
+                        </label>
                     </Grid>
                     <Grid item>
                         <Grid container direction={"column"} gap={3}>
@@ -34,7 +45,7 @@ export default function AccountPage() {
         <Grid container columnSpacing={4} rowSpacing={4} mt={6} mb={6}>
             {MODELS.map((model: Model, key: number) => (
                 <Grid key={key} item>
-                    <Card key={key} model={model} accountOptions={["Удалить","Изменить"]}/>
+                    <Card key={key} model={model} accountOptions={["Удалить", "Изменить"]} />
                 </Grid>
             ))}
         </Grid>

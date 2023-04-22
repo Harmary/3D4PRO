@@ -29,7 +29,10 @@ export default function Card(props: CardProps) {
         }} >
             <div style={{
                 width: "inherit",
-                height: "inherit", backgroundImage: `linear-gradient(180deg, rgba(120, 120, 137, 0) 40.42%, #16161A 85.73%) `, borderRadius: "inherit"
+                height: "inherit", 
+                backgroundImage: `linear-gradient(180deg, rgba(120, 120, 137, 0) 40.42%, #16161A 85.73%) `, 
+                borderRadius: "inherit",
+                cursor: "pointer"
             }}>
                 {props.accountOptions !== undefined ? <Grid container p={1} justifyContent={"end"}>
                     <KebabMenu options={props.accountOptions}/>
