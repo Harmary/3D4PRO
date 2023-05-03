@@ -1,0 +1,38 @@
+# Версия схемы, которую мы используем.
+# Зависит от установленной версии docker
+# https://docs.docker.com/compose/compose-file/
+version: "3"
+# Определяем список сервисов — services
+# Эти сервисы будут частью нашего приложения
+services:
+
+  backend: # Имя сервиса
+    # image: ghcr.io/harmary/3d4pro:sha256-29873ed1bac1e0ca2ea4810fa76f4eff3d78402d63691da5ee9aa8188087fd9a.sig
+    image: ghcr.io/harmary/3d4pro:main
+    ports: # Проброс портов
+      - "8080:3333"
+    environment:
+      # А так задаются переменные окружения
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=admin
+      - DB_NAME=postgres
+      - JWT_SECRET='eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZX'
+    # Сервис будет запущен, только после старта db
+    depends_on:
+      - db
+
+  db:
+    # Имя образа. Здесь мы используем базу данных Postgres
+    image: postgres:latest
+    environment:
+      # А так задаются переменные окружения
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USERNAME: postgres
+      # POSTGRES_DB: 3D4PRO
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
