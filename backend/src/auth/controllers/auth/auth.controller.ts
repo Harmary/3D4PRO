@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Param } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/services/auth/auth.service';
 import { User } from 'src/typeorm';
@@ -42,5 +42,11 @@ export class AuthController {
     createUserDto.guid = uuidv4();
     const registeredUser = await this.authService.registerUser(createUserDto);
     return registeredUser;
+  }
+
+  @Post('registerModeler/:email')
+  async registerModeler(@Param('email') email: string) {
+    const guid = uuidv4();
+    return this.authService.registerModeler(email, guid);
   }
 }
