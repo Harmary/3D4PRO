@@ -1,10 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryColumn} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity('User')
 export class User {
-  @PrimaryColumn({
-    type: 'uuid',
+  @PrimaryGeneratedColumn('uuid', {
     name: 'guid',
   })
   guid: string;

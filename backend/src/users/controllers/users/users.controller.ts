@@ -11,7 +11,6 @@ import {
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { UsersService } from 'src/users/services/users/users.service';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { v4 as uuidv4 } from 'uuid';
 
 @ApiTags('Admin')
 @Controller('/Admin')
@@ -47,7 +46,6 @@ export class UsersController {
   })
   @UsePipes(ValidationPipe)
   async createUsers(@Body() createUserDto: CreateUserDto) {
-    createUserDto.guid = uuidv4();
     return await this.userService.createUser(createUserDto);
   }
 }
