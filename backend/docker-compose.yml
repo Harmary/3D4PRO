@@ -5,12 +5,36 @@ version: "3"
 # Определяем список сервисов — services
 # Эти сервисы будут частью нашего приложения
 services:
+  traefik:
+    image: "traefik:v2.10"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=maria.h4rlamova@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   backend: # Имя сервиса
     # image: ghcr.io/harmary/3d4pro:sha256-29873ed1bac1e0ca2ea4810fa76f4eff3d78402d63691da5ee9aa8188087fd9a.sig
     image: ghcr.io/harmary/3d4pro:main
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`api.3d4pro.team418.ru`)"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=myresolver"
     ports: # Проброс портов
-      - "8080:3333"
+      - "80:3333"
     environment:
       # А так задаются переменные окружения
       - DB_HOST=db
