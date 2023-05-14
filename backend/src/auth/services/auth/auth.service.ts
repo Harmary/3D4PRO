@@ -24,14 +24,16 @@ export class AuthService {
   }
 
   async login(user: any) {
+    const authUser = await this.userRepository.findOne({ where: { login: user.login } });
     const payload = {
       login: user.login,
-      sub: user.guid,
+      sub: authUser.guid,
       role:
         user.login === 'admin' && user.password === 'admin' ? 'admin' : 'user',
     };
     return {
       access_token: this.jwtService.sign(payload),
+      guid: authUser.guid
     };
   }
 
