@@ -9,6 +9,8 @@ import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
 import AccountPage from './pages/account/account';
 import AdminPanel from './pages/adminpanel/adminPanel';
+import AddNewModelForm from './pages/addModel/addNewModelForm';
+import ProtectedRoute from './components/common/protectedRoute';
 
 
 function App() {
@@ -21,7 +23,11 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/account' element={<Layout><AccountPage /></Layout>} />
-          <Route path='/adminpanel' element={<Layout><AdminPanel /></Layout>} />
+          <Route path='/adminpanel' element={
+            <ProtectedRoute role={'admin'} redirectPath={'/'}>
+              <Layout><AdminPanel /></Layout>
+            </ProtectedRoute>} />
+          <Route path='/addnewmodel' element={<Layout><AddNewModelForm /></Layout>} />
         </Routes>
       </ThemeProvider>
     </div>
