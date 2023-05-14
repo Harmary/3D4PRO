@@ -24,7 +24,7 @@ export class AuthController {
     return this.authService.login(user);
   }
 
-  @Post('register')
+  @Post('register/:isHasToken')
   @ApiBody({
     schema: {
       type: 'object',
@@ -35,16 +35,18 @@ export class AuthController {
         password: { type: 'string' },
       },
     },
+
   })
   async registerUser(
-    @Body() createUserDto: CreateUserDto, isHaveToken: boolean
-  ): Promise<{ user: User; }> {
+    @Body() createUserDto: CreateUserDto, 
+    @Param('isHasToken') isHasToken: boolean
+  ): Promise<{ user: User; token?: string }> {
     createUserDto.guid = uuidv4();
-    const registeredUser = await this.authService.registerUser(createUserDto, isHaveToken);
+    const registeredUser = await this.authService.registerUser(createUserDto, isHasToken);
     return registeredUser;
   }
 
-  @Post('registerModeler/:email')
+  @Post('sendRegisterMailToModeler/:email')
   async registerModeler(@Param('email') email: string) {
     const guid = uuidv4();
     return this.authService.registerLinkModeler(email, guid);

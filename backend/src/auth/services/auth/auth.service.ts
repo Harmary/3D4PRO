@@ -42,9 +42,9 @@ export class AuthService {
 
   async registerUser(
     user: CreateUserDto,
-    isHaveToken: boolean
+    isHasToken: boolean
   ): Promise<{ user: User; token?: string }> {
-    if (isHaveToken) {
+    if (isHasToken) {
       const savedUser = await this.userRepository.save(user);
       const modeler = new Modeler();
       modeler.user_guid = user.guid;

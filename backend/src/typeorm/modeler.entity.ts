@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('Modeler')
 export class Modeler {
