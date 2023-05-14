@@ -42,6 +42,8 @@ export default function LoginPage() {
                 return navigate("/adminpanel");
             case 'user':
                 return navigate(`/account/${localStorage.getItem('userGuid')}`);
+            case 'modeler':
+                return navigate(`/account/${localStorage.getItem('userGuid')}`);
             default:
                 break;
         }

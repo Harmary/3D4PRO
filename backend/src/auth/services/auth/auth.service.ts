@@ -15,7 +15,7 @@ export class AuthService {
     @InjectRepository(Modeler) private readonly modelerRepository: Repository<Modeler>,
     private jwtService: JwtService,
     private mailService: MailService,
-  ) {}
+  ) { }
 
   async validateUser(login: string, password: string): Promise<any> {
     const user = await this.userRepository.findOne({ where: { login: login } });
@@ -28,11 +28,19 @@ export class AuthService {
 
   async login(user: any) {
     const authUser = await this.userRepository.findOne({ where: { login: user.login } });
+    const modeler = await this.modelerRepository.findOne({ where: { user_guid: authUser.guid } });
+    let role;
+    if (user.login === 'admin' && user.password === 'adminadmin') {
+      role = 'admin'
+    } else if (modeler) {
+      role = 'modeler'
+    } else {
+      role = 'user'
+    }
     const payload = {
       login: user.login,
       sub: authUser.guid,
-      role:
-        user.login === 'admin' && user.password === 'admin' ? 'admin' : 'user',
+      role: role,
     };
     return {
       access_token: this.jwtService.sign(payload),
@@ -50,7 +58,7 @@ export class AuthService {
       modeler.user_guid = user.guid;
       modeler.account = 0;
       await this.modelerRepository.save(modeler);
-      return {user: savedUser}
+      return { user: savedUser }
     } else {
       const token = this.jwtService.sign({
         login: user.login,

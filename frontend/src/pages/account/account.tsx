@@ -4,10 +4,14 @@ import dummyBoyAvatar from "../../assets/images/dummyboyavatar.png"
 import fakeData from "../../hardcoded_data/models.json"
 import { Model } from "../../contracts/model";
 import Card from "../../components/shop/card";
+import { useParams } from "react-router-dom";
 
 const MODELS = JSON.parse(JSON.stringify(fakeData))
 
 export default function AccountPage() {
+    let { guid } = useParams();
+    let role = localStorage.getItem('userRole')
+
     return <>
         <Grid mt={10} container justifyContent={"space-between"}>
             <Grid item>
@@ -17,7 +21,7 @@ export default function AccountPage() {
                             accept="image/*"
                             id="contained-button-file"
                             multiple
-                            style={{display:"none"}}
+                            style={{ display: "none" }}
                             type="file"
                         />
                         <label htmlFor="contained-button-file">
@@ -35,19 +39,26 @@ export default function AccountPage() {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item>
-                <Grid container direction={"column"} alignItems={"end"} mt={9} gap={7}>
-                    <Grid item><Typography color={'#72757E'} variant="caption">На счету:</Typography><Typography variant="subtitle1">20$</Typography></Grid>
-                    <Grid item><Button variant="contained">Вывести</Button></Grid>
+            {role === 'modeler' ?
+                <Grid item>
+                    <Grid container direction={"column"} alignItems={"end"} mt={9} gap={7}>
+                        <Grid item><Typography color={'#72757E'} variant="caption">На счету:</Typography><Typography variant="subtitle1">20$</Typography></Grid>
+                        <Grid item><Button variant="contained">Вывести</Button></Grid>
+                    </Grid>
                 </Grid>
+                : ""
+            }
+        </Grid>
+        {role === 'modeler' ?
+            <Grid container columnSpacing={4} rowSpacing={4} mt={6} mb={6}>
+                {MODELS.map((model: Model, key: number) => (
+                    <Grid key={key} item>
+                        <Card key={key} model={model} accountOptions={["Удалить", "Изменить"]} />
+                    </Grid>
+                ))}
             </Grid>
-        </Grid>
-        <Grid container columnSpacing={4} rowSpacing={4} mt={6} mb={6}>
-            {MODELS.map((model: Model, key: number) => (
-                <Grid key={key} item>
-                    <Card key={key} model={model} accountOptions={["Удалить", "Изменить"]} />
-                </Grid>
-            ))}
-        </Grid>
+            :""
+        }
+        
     </>
 }

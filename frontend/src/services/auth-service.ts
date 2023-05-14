@@ -30,16 +30,18 @@ export default class AuthServise {
     /**
      * registration
      */
-    public async registration(name: string, login: string, email: string, password: string) {
+    public async registration(name: string, login: string, email: string, password: string, isHasToken: boolean, token?: string) {
         await axios.post('https://api.3d4pro.team418.ru/auth/register', {
             "name": name,
             "login": login,
             "email": email,
             "password": password
-        })
+        }, {params: {
+            isHasToken: isHasToken
+        }})
             .then((res) => {
-                localStorage.setItem('userToken', res.data.access_token);
-                let tokenInfo: any = jwtDecode(res.data.access_token);
+                localStorage.setItem('userToken', token ? token : res.data.token)
+                let tokenInfo: any = jwtDecode(token ? token : res.data.token);
                 localStorage.setItem('userRole', tokenInfo.role);
                 localStorage.setItem('userGuid', res.data.guid);
             })
