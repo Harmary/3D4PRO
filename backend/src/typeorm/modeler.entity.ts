@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity('Modeler')
 export class Modeler {
@@ -7,6 +8,7 @@ export class Modeler {
   })
   guid: string;
 
+  @OneToOne(() => User, user => user.guid, {onDelete: 'CASCADE'})
   @Column({
     name: 'user_guid',
     nullable: false,

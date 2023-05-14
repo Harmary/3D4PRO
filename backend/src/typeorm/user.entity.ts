@@ -1,8 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { Modeler } from './modeler.entity';
 
 @Entity('User')
 export class User {
+  @OneToOne(() => Modeler, modeler => modeler.user_guid, {onDelete: 'CASCADE'})
   @PrimaryGeneratedColumn('uuid', {
     name: 'guid',
   })
