@@ -40,10 +40,8 @@ export default function LoginPage() {
         switch (localStorage.getItem('userRole')) {
             case 'admin':
                 return navigate("/adminpanel");
-            case 'modeler':
-                return navigate("/account");
             case 'user':
-                return navigate("/account");
+                return navigate(`/account/${localStorage.getItem('userGuid')}`);
             default:
                 break;
         }

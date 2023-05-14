@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { MailModule } from 'src/mail/mail.module';
+import { Modeler } from 'src/typeorm/modeler.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { MailModule } from 'src/mail/mail.module';
       secret: process.env.JWT_SECRET, // Replace with your own secret key
       signOptions: { expiresIn: '60s' }, // Replace with your own expiration time
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Modeler]),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],

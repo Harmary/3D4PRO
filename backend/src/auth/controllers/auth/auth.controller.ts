@@ -37,16 +37,16 @@ export class AuthController {
     },
   })
   async registerUser(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<{ user: User; token: string }> {
+    @Body() createUserDto: CreateUserDto, isHaveToken: boolean
+  ): Promise<{ user: User; }> {
     createUserDto.guid = uuidv4();
-    const registeredUser = await this.authService.registerUser(createUserDto);
+    const registeredUser = await this.authService.registerUser(createUserDto, isHaveToken);
     return registeredUser;
   }
 
   @Post('registerModeler/:email')
   async registerModeler(@Param('email') email: string) {
     const guid = uuidv4();
-    return this.authService.registerModeler(email, guid);
+    return this.authService.registerLinkModeler(email, guid);
   }
 }

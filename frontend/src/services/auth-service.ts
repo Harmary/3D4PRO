@@ -9,10 +9,6 @@ export default class AuthServise {
         await axios.post('https://api.3d4pro.team418.ru/auth/login',  {
             login: login,
             password: password
-        }, {
-            headers:{
-                "Access-Control-Allow-Origin": "*"
-            }
         })
         .then((res) => {
             localStorage.setItem('userToken', res.data.access_token);
@@ -28,5 +24,31 @@ export default class AuthServise {
     public logout() {
         localStorage.removeItem('userToken');
         localStorage.removeItem('userRole');
+        localStorage.removeItem('userGuid');
+    }
+
+    /**
+     * registration
+     */
+    public async registration(name: string, login: string, email: string, password: string) {
+        await axios.post('https://api.3d4pro.team418.ru/auth/register', {
+            "name": name,
+            "login": login,
+            "email": email,
+            "password": password
+        })
+            .then((res) => {
+                localStorage.setItem('userToken', res.data.access_token);
+                let tokenInfo: any = jwtDecode(res.data.access_token);
+                localStorage.setItem('userRole', tokenInfo.role);
+                localStorage.setItem('userGuid', res.data.guid);
+            })
+    }
+
+    /**
+     * sendRegistrationLink
+     */
+    public async sendRegistrationLink(email: string) {
+        return await axios.post('https://api.3d4pro.team418.ru/auth/registerModeler', {email: email})
     }
 }
