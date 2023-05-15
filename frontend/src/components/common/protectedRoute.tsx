@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 
 type ProtectedRouteProps = {
-    role: string,
+    role: string[],
     redirectPath:string,
     children: JSX.Element;
 }
@@ -9,7 +9,7 @@ type ProtectedRouteProps = {
 const ProtectedRoute = (props: ProtectedRouteProps) => {
     let location = useLocation();
 
-    if ((props.role !== localStorage.getItem("userRole")) || !localStorage.getItem("userToken")) {
+    if (localStorage.getItem("userToken") === null || !props.role.includes(localStorage.getItem('userRole') as string)) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
     return props.children;

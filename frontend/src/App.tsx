@@ -24,21 +24,21 @@ function App() {
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/account/:guid'
             element={
-              <ProtectedRoute role={'user'} redirectPath={'/'}>
+              <ProtectedRoute role={['user', 'modeler']} redirectPath={'/'}>
                 <Layout><AccountPage /></Layout>
               </ProtectedRoute>
             }
           />
           <Route path='/adminpanel'
             element={
-              <ProtectedRoute role={'admin'} redirectPath={'/'}>
+              <ProtectedRoute role={['admin']} redirectPath={'/'}>
                 <Layout><AdminPanel /></Layout>
               </ProtectedRoute>
             }
           />
           <Route path='/addnewmodel'
             element={
-              <ProtectedRoute role={'modeler'} redirectPath={'/'}>
+              <ProtectedRoute role={['modeler']} redirectPath={'/'}>
                 <Layout>
                   <AddNewModelForm />
                 </Layout>
