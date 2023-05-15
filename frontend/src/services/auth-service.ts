@@ -6,16 +6,16 @@ export default class AuthServise {
      * login
      */
     public async login(login: string, password: string) {
-        await axios.post('https://api.3d4pro.team418.ru/auth/login',  {
+        return await axios.post('https://api.3d4pro.team418.ru/auth/login',  {
             login: login,
             password: password
-        })
-        .then((res) => {
+        }).then((res) => {
             localStorage.setItem('userToken', res.data.access_token);
-            let tokenInfo:any = jwtDecode(res.data.access_token);
+            let tokenInfo: any = jwtDecode(res.data.access_token);
             localStorage.setItem('userRole', tokenInfo.role);
             localStorage.setItem('userGuid', res.data.guid);
         })
+        
     }
 
     /**
@@ -31,14 +31,12 @@ export default class AuthServise {
      * registration
      */
     public async registration(name: string, login: string, email: string, password: string, isHasToken: boolean, token?: string) {
-        await axios.post('https://api.3d4pro.team418.ru/auth/register', {
+        await axios.post(`https://api.3d4pro.team418.ru/auth/register/${isHasToken}`, {
             "name": name,
             "login": login,
             "email": email,
             "password": password
-        }, {params: {
-            isHasToken: isHasToken
-        }})
+        })
             .then((res) => {
                 localStorage.setItem('userToken', token ? token : res.data.token)
                 let tokenInfo: any = jwtDecode(token ? token : res.data.token);
@@ -51,6 +49,6 @@ export default class AuthServise {
      * sendRegistrationLink
      */
     public async sendRegistrationLink(email: string) {
-        return await axios.post('https://api.3d4pro.team418.ru/auth/registerModeler', {email: email})
+        return await axios.post(`https://api.3d4pro.team418.ru/auth/sendRegisterMailToModeler/${email}`)
     }
 }

@@ -1,16 +1,13 @@
-import { Box, Button, Container, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, Link, OutlinedInput, TextField, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import '../login/login.css'
 import theme from '../../theme'
-import { WhiteTextField } from '../../components/whiteFormControll'
-import { useState } from 'react';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import AuthServise from '../../services/auth-service';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup";
-import { Controller, useForm } from 'react-hook-form';
-import { type } from 'os';
+import WhiteTextInput from '../../components/common/formInputs/whiteTextInput';
+import WhitePasswordInput from '../../components/common/formInputs/whitePasswordInput';
+import { useForm } from 'react-hook-form';
 
 const schema = yup.object().shape(
     {
@@ -18,6 +15,8 @@ const schema = yup.object().shape(
         name: yup.string().required("Введите имя"),
         password: yup.string().required("Введите пароль"),
         email: yup.string().required("Введите почту").email("Введите верную почту"),
+        passwordConfirmation: yup.string()
+            .oneOf([yup.ref('password'), undefined], 'Повторите пароль')
     }
 )
 
@@ -25,24 +24,19 @@ type FormValues = {
     login: string,
     name: string,
     password: string,
+    passwordConfirmation: string,
     email: string
 }
 
 export default function RegisterPage() {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams()
-    const [showPassword, setShowPassword] = useState(false);
     const { control, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver: yupResolver(schema) });
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
     
-    const onSubmit = (data: FormValues) => {
+    const onSubmit = async (data: FormValues) => {
         let authServise = new AuthServise();
         if (searchParams.get('token') === null) {
-            authServise.registration(
+            await authServise.registration(
                 data.name,
                 data.login,
                 data.email,
@@ -50,7 +44,7 @@ export default function RegisterPage() {
                 false,
             )
         } else {
-            authServise.registration(
+            await authServise.registration(
                 data.name,
                 data.login,
                 data.email,
@@ -76,121 +70,28 @@ export default function RegisterPage() {
                                 </Typography>
                                 <Grid direction={"column"} rowSpacing={2} container>
                                     <Grid item>
-                                        <Controller
-                                            name="name"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({ field }) => (
-                                                <WhiteTextField fullWidth>
-                                                    <TextField  
-                                                        {...field} 
-                                                        fullWidth 
-                                                        label="Имя" 
-                                                        error={!!errors.name}
-                                                        helperText={errors.name?.message} />
-                                                </WhiteTextField>
-                                            )}
-                                        />
+                                        <WhiteTextInput control={control} errors={errors.name} name={'name'} label={'Имя'} />
                                     </Grid>
                                     <Grid item>
-                                        <Controller
-                                            name="email"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({ field }) => (
-                                                <WhiteTextField fullWidth>
-                                                    <TextField
-                                                        {...field}
-                                                        fullWidth
-                                                        label="Email"
-                                                        error={!!errors.email}
-                                                        helperText={errors.email?.message} />
-                                                </WhiteTextField>
-                                            )}
-                                        />
+                                        <WhiteTextInput control={control} errors={errors.email} name={'email'} label={'Email'}/>
                                     </Grid>
                                     <Grid item>
-                                        <Controller
-                                            name="login"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({ field }) => (
-                                                <WhiteTextField fullWidth>
-                                                    <TextField
-                                                        {...field}
-                                                        fullWidth
-                                                        label="Логин"
-                                                        error={!!errors.login}
-                                                        helperText={errors.login?.message} />
-                                                </WhiteTextField>
-                                            )}
-                                        />
+                                        <WhiteTextInput control={control} errors={errors.login} name={'login'} label={'Логин'} />
                                     </Grid>
                                     <Grid item>
-                                        <Controller
-                                            name="password"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({ field }) => (
-                                                <WhiteTextField fullWidth error={!!errors.password} variant="outlined">
-                                                    <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
-                                                    <OutlinedInput
-                                                        {...field}
-                                                        id="outlined-adornment-password"
-                                                        type={showPassword ? 'text' : 'password'}
-                                                        endAdornment={
-                                                            <InputAdornment position="end">
-                                                                <IconButton
-                                                                    aria-label="toggle password visibility"
-                                                                    onClick={handleClickShowPassword}
-                                                                    onMouseDown={handleMouseDownPassword}
-                                                                    edge="end"
-                                                                >
-                                                                    {showPassword ? <VisibilityOff htmlColor={theme.palette.primary.main} /> : <Visibility htmlColor={theme.palette.primary.main} />}
-                                                                </IconButton>
-                                                            </InputAdornment>
-                                                        }
-                                                        label="Пароль"
-                                                    />
-                                                    {errors.password?.message && <FormHelperText>{errors.password?.message}</FormHelperText>}
-                                                </WhiteTextField>)
-
-                                            }
-                                        />
+                                        <WhitePasswordInput control={control} errors={errors.password} label={'Пароль'} name={'password'}/>
                                     </Grid>
                                     <Grid item>
-                                        <WhiteTextField fullWidth variant="outlined">
-                                            <InputLabel htmlFor="outlined-adornment-password">Повторите пароль</InputLabel>
-                                            <OutlinedInput
-                                                id="outlined-adornment-password"
-                                                type={showPassword ? 'text' : 'password'}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={handleClickShowPassword}
-                                                            onMouseDown={handleMouseDownPassword}
-                                                            edge="end"
-                                                        >
-                                                            {showPassword ? <VisibilityOff htmlColor={theme.palette.primary.main} /> : <Visibility htmlColor={theme.palette.primary.main} />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                                label="Повторите пароль"
-                                            />
-                                        </WhiteTextField>
+                                        <WhitePasswordInput control={control} errors={errors.passwordConfirmation} label={'Повтор пароля'} name={'passwordConfirmation'} />
                                     </Grid>
                                 </Grid>
                                 <Grid direction={"column"} rowGap={2} alignItems={"center"} container>
                                     <Button size='large' type='submit' fullWidth variant="contained">Зарегистрироваться</Button>
                                 </Grid>
                             </Grid>
-
                         </Grid>
-
                     </Grid>
                 </form>
-               
             </div>
         </Box >
     </>
