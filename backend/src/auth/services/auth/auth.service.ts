@@ -30,9 +30,9 @@ export class AuthService {
     const authUser = await this.userRepository.findOne({ where: { login: user.login } });
     const modeler = await this.modelerRepository.findOne({ where: { user_guid: authUser.guid } });
     let role;
-    if (user.login === 'admin' && user.password === 'adminadmin') {
+    if (user.login === 'admin') {
       role = 'admin'
-    } else if (modeler) {
+    } else if (modeler !== null) {
       role = 'modeler'
     } else {
       role = 'user'
