@@ -22,12 +22,29 @@ function App() {
           <Route path='/shop' element={<Layout><ShopPage /></Layout>} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
-          <Route path='/account/:guid' element={<Layout><AccountPage /></Layout>} />
-          <Route path='/adminpanel' element={
-            <ProtectedRoute role={'admin'} redirectPath={'/'}>
-              <Layout><AdminPanel /></Layout>
-            </ProtectedRoute>} />
-          <Route path='/addnewmodel' element={<Layout><AddNewModelForm /></Layout>} />
+          <Route path='/account/:guid'
+            element={
+              <ProtectedRoute role={'user'} redirectPath={'/'}>
+                <Layout><AccountPage /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route path='/adminpanel'
+            element={
+              <ProtectedRoute role={'admin'} redirectPath={'/'}>
+                <Layout><AdminPanel /></Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route path='/addnewmodel'
+            element={
+              <ProtectedRoute role={'modeler'} redirectPath={'/'}>
+                <Layout>
+                  <AddNewModelForm />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </ThemeProvider>
     </div>

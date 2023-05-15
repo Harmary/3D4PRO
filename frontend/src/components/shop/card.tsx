@@ -1,4 +1,4 @@
-import { Grid, IconButton, Paper, Typography } from "@mui/material"
+import { Grid, IconButton, MenuItem, Paper, Typography } from "@mui/material"
 import { Model } from "../../contracts/model"
 import downloandIcn from "../../assets/images/icons/download.png"
 import { useState } from "react"
@@ -35,7 +35,9 @@ export default function Card(props: CardProps) {
                 cursor: "pointer"
             }}>
                 {props.accountOptions !== undefined ? <Grid container p={1} justifyContent={"end"}>
-                    <KebabMenu options={props.accountOptions}/>
+                    <KebabMenu>
+                        {props.accountOptions.map((option) => (<MenuItem>{option}</MenuItem>))}
+                    </KebabMenu>
                 </Grid> : ""}
                 <Grid pt={props.accountOptions !== undefined ? 33 : 39} pl={3} pr={3} justifyContent="space-between" onClick={handleOpenModal} container>
                     <Grid item>

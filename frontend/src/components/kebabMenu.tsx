@@ -8,7 +8,7 @@ import theme from '../theme';
 const ITEM_HEIGHT = 48;
 
 type KebabProps = {
-    options:string[],
+    children?: JSX.Element | JSX.Element[]
 }
 
 
@@ -48,11 +48,7 @@ export default function KebabMenu(props: KebabProps) {
                 },
             }}
         >
-            {props.options.map((option) => (
-                <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-                    {option}
-                </MenuItem>
-            ))}
+            {props.children}
         </Menu></>
     
 }

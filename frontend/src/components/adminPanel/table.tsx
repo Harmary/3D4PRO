@@ -1,46 +1,46 @@
-import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, renderActionsCell } from '@mui/x-data-grid';
+import { useEffect, useState } from 'react';
+import { User } from '../../contracts/user';
+import { MenuItem } from '@mui/material';
+import KebabMenu from '../kebabMenu';
+import AdminService from '../../services/admin-service';
 
+const handleDeleteUser = (guid: string) => {
+    let adminService = new AdminService();
+    adminService.deleteUser(guid)
+}
 
 const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First name', width: 230 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
+    { field: 'name', headerName: 'Имя', width: 300 },
+    { field: 'login', headerName: 'Логин', width: 200 },
+    { field: 'email', headerName: 'Email', width: 350 },
     {
-        field: 'age',
-        headerName: 'Age',
-        type: 'number',
-        width: 120,
-    },
-    {
-        field: 'fullName',
-        headerName: 'Full name',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 260,
-        valueGetter: (params: GridValueGetterParams) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+        field: 'guid', headerName: 'Действия',
+        renderCell: (params) => {
+            return <KebabMenu>
+                <MenuItem onClick={() => {handleDeleteUser(params.value)}}>Удалить</MenuItem>
+                <MenuItem>Редактировать</MenuItem>
+            </KebabMenu>
+        },
     },
 ];
 
-const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
 
-export default function AdminTable() {
+export default function AdminTable(props: { rows: User[] }) {
+    const [rows, setRows] = useState<User[]>([])
+
+
+    useEffect(() => {
+        setRows(props.rows)
+    }, [props.rows])
+
+
     return <>
-        <div style={{ height: 400, width: '100%', background:"#fff" }}>
+        <div style={{ height: 400, width: '100%', background: "#fff" }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
+                getRowId={(row) => row.guid}
                 // pageSize={5}
                 autoPageSize
                 checkboxSelection
