@@ -31,9 +31,10 @@ export class UsersController {
     return await this.userService.getModelers();
   }
 
-  @Get('SelectUsers/:guid')
-  async findUsersById(@Param('guid') guid: string) {
-    return await this.userService.findUsersByGuid(guid);
+  @Get('SelectUsers/:guid/:role')
+  async findUsersById(@Param('guid') guid: string, @Param('role') role: string) {
+    if (role === 'user') return await this.userService.findUsersByGuid(guid);
+    else return await this.userService.findModelerByGuid(guid)
   }
 
   @Delete('/DeleteUser/:guid')

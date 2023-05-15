@@ -5,12 +5,23 @@ import fakeData from "../../hardcoded_data/models.json"
 import { Model } from "../../contracts/model";
 import Card from "../../components/shop/card";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import AdminService from "../../services/admin-service";
+import { User } from "../../contracts/user";
 
 const MODELS = JSON.parse(JSON.stringify(fakeData))
 
 export default function AccountPage() {
     let { guid } = useParams();
     let role = localStorage.getItem('userRole')
+    const [user, setUser] = useState<User>();
+
+    useEffect(() => {
+        let adminService = new AdminService();
+        adminService.getUserByGuid(guid as string).then((res) => {
+            setUser(res.data)
+        })
+    })
 
     return <>
         <Grid mt={10} container justifyContent={"space-between"}>
@@ -32,9 +43,9 @@ export default function AccountPage() {
                     </Grid>
                     <Grid item>
                         <Grid container direction={"column"} gap={3}>
-                            <Grid item><Typography variant="subtitle1">Иванов Иван Иванович</Typography></Grid>
-                            <Grid item><Typography color={'#72757E'} variant="caption">Ник:</Typography><Typography variant="body1">IvanovIvan</Typography></Grid>
-                            <Grid item><Typography color={'#72757E'} variant="caption">Email:</Typography><Typography variant="body1">ivanovivan@gmail.com</Typography></Grid>
+                            <Grid item><Typography variant="subtitle1">{user?.name}</Typography></Grid>
+                            <Grid item><Typography color={'#72757E'} variant="caption">Ник:</Typography><Typography variant="body1">{user?.login}</Typography></Grid>
+                            <Grid item><Typography color={'#72757E'} variant="caption">Email:</Typography><Typography variant="body1">{user?.email}</Typography></Grid>
                         </Grid>
                     </Grid>
                 </Grid>

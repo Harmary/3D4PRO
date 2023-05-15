@@ -9,7 +9,7 @@ export class Modeler {
   guid: string;
 
   @OneToOne(() => User, user => user.guid, {onDelete: 'CASCADE'})
-  @Column({
+  @Column('uuid', {
     name: 'user_guid',
     nullable: false,
   })

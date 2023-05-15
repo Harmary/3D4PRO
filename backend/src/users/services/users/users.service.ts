@@ -43,4 +43,8 @@ export class UsersService {
   findUsersByGuid(guid: string) {
     return this.userRepository.findOne({ where: { guid: guid } });
   }
+
+  findModelerByGuid(guid: string) {
+    return this.userRepository.query(`SELECT "User".name, "User".email, "User".login, "User".avatar_id, "Modeler".account FROM "User", "Modeler" WHERE "User".guid = "Modeler".user_guid AND "Modeler".user_guid = '${guid}'`);
+  }
 }

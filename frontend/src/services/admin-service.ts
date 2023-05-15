@@ -9,6 +9,13 @@ export default class AdminService {
     }
 
     /**
+     * getUserByGuid
+     */
+    public async getUserByGuid(guid:string) {
+        return await axios.get(`https://api.3d4pro.team418.ru/Admin/SelectUsers/${guid}`)
+    }
+
+    /**
      * deleteUser
      */
     public async deleteUser(guid: string) {
