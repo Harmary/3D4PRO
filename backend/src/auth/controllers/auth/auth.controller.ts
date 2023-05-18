@@ -1,6 +1,6 @@
-import { Controller, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Param, UseGuards, Get, Req } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { LocalAuthGuard } from 'src/auth/jwt/local-auth.guard';
+import { JwtAuthGuard2 } from 'src/auth/jwt/jwt.guard';
 import { AuthService } from 'src/auth/services/auth/auth.service';
 import { User } from 'src/typeorm';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
@@ -11,7 +11,12 @@ import { v4 as uuidv4 } from 'uuid';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard2)
+  @Get('usertest')
+  async userTest(@Req() request: Request) {
+    return request['user'];
+  }
+
   @Post('login')
   @ApiBody({
     schema: {
@@ -25,6 +30,7 @@ export class AuthController {
   async login(@Body() user: { login: string; password: string }) {
     return this.authService.login(user);
   }
+ 
 
   @Post('register/:isHasToken')
   @ApiBody({
