@@ -6,7 +6,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { MailService } from '../../../mail/mail.service';
 import { Modeler } from 'src/typeorm/modeler.entity';
-import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class AuthService {

@@ -4,10 +4,16 @@ import {
     Post,
     UploadedFile,
     UseInterceptors,
+    Headers,
+    UseGuards,
+    Logger,
+    Req
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { Request } from 'express';
 
 @Controller('Upload')
 export class UploadController {
@@ -15,6 +21,7 @@ export class UploadController {
 
     @Post('Avatar')
     @ApiConsumes('multipart/form-data')
+    @UseGuards(JwtAuthGuard)
     @ApiBody({
         schema: {
             type: 'object',
@@ -37,11 +44,14 @@ export class UploadController {
             }),
         )
         file: Express.Multer.File,
+        @Req() req:Request
     ) {
-        await this.uploadService.upload(file.originalname, file.buffer);
+        const token = req.headers.authorization.replace('Bearer ', '');
+        await this.uploadService.upload(token, file.originalname, file.buffer);
     }
 
     @Post('Model')
+    @UseGuards(JwtAuthGuard)
     @ApiConsumes('multipart/form-data')
     @ApiBody({
         schema: {
@@ -65,7 +75,8 @@ export class UploadController {
             }),
         )
         file: Express.Multer.File,
+        @Headers('Authorization') auth: string
     ) {
-        await this.uploadService.upload(file.originalname, file.buffer);
+        await this.uploadService.upload(auth, file.originalname, file.buffer);
     }
 }

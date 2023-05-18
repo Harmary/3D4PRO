@@ -9,22 +9,25 @@ import { User } from 'src/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { MailModule } from 'src/mail/mail.module';
 import { Modeler } from 'src/typeorm/modeler.entity';
+import { UsersModule } from 'src/users/users.module';
+import { LocalStrategy } from './jwt/local.strategy';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    UsersModule,
     PassportModule,
     MailModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET, // Replace with your own secret key
-      signOptions: { expiresIn: '60s' }, // Replace with your own expiration time
+      secret: 'secret', // Replace with your own secret key
+      signOptions: { expiresIn: '1h' }, // Replace with your own expiration time
     }),
     TypeOrmModule.forFeature([User, Modeler]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, LocalStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
