@@ -30,8 +30,8 @@ export class UploadService {
         const result = await this.imageRepository.save({
             link: `https://s3.timeweb.com/373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de/avatars/${token.sub}.${fileName.split('.').pop()}`
         })
-        this.userRepository.createQueryBuilder().update(User).set({ avatarId: result.imageId }).where("guid = :guid", { guid: token.sub }).execute();
-        return this.imageRepository.findOne({ where: { imageId: result.imageId } });
+        this.userRepository.createQueryBuilder().update(User).set({ avatarId: result.image_id }).where("guid = :guid", { guid: token.sub }).execute();
+        return this.imageRepository.findOne({ where: { image_id: result.image_id } });
     }
 
     async uploadModel(token: any, fileName: string, file: Buffer) {

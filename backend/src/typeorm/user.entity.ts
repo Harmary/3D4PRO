@@ -39,7 +39,7 @@ export class User {
   })
   password: string;
 
-  @OneToOne(() => Image, image => image.imageId)
+  @OneToOne(() => Image, image => image.image_id)
   @Column({
     name: 'avatar_id',
     type: 'integer',

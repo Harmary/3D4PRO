@@ -6,7 +6,7 @@ import { User } from './user.entity';
 export class Image {
   @OneToOne(() => User, user => user.avatarId, { onDelete: "CASCADE" })
   @PrimaryGeneratedColumn()
-  public imageId: number;
+  public image_id: number;
 
   @Column('varchar', {
     length: 200

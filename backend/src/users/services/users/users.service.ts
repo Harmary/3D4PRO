@@ -41,10 +41,10 @@ export class UsersService {
   }
 
   findUsersByGuid(guid: string) {
-    return this.userRepository.findOne({ where: { guid: guid } });
+    return this.userRepository.query(`SELECT "User".name, "User".guid, "User".email, "User".login, "Image".link FROM "User", "Image" WHERE "User".avatar_id = "Image".image_id AND "User".guid = '${guid}'`);;
   }
 
   findModelerByGuid(guid: string) {
-    return this.userRepository.query(`SELECT "User".name, "User".email, "User".login, "User".avatar_id, "Modeler".account FROM "User", "Modeler" WHERE "User".guid = "Modeler".user_guid AND "Modeler".user_guid = '${guid}'`);
+    return this.userRepository.query(`SELECT "User".name, "User".email, "User".login, "Image".link, "Modeler".account FROM "User", "Modeler", "Image" WHERE "User".guid = "Modeler".user_guid AND "User".avatar_id = "Image".image_id AND "Modeler".user_guid = '${guid}'`);
   }
 }
