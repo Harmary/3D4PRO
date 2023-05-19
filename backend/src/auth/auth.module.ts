@@ -21,8 +21,8 @@ import { LocalStrategy } from './jwt/local.strategy';
     PassportModule,
     MailModule,
     JwtModule.register({
-      secret: 'secret', // Replace with your own secret key
-      signOptions: { expiresIn: '1h' }, // Replace with your own expiration time
+      secret: process.env.JWT_SECRET, // Replace with your own secret key
+      signOptions: { expiresIn: '3h' }, // Replace with your own expiration time
     }),
     TypeOrmModule.forFeature([User, Modeler]),
   ],

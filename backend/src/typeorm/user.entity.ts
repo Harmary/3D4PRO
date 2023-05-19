@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
 import { Modeler } from './modeler.entity';
+import { Image } from './image.entity'
 
 @Entity('User')
 export class User {
@@ -38,10 +39,10 @@ export class User {
   })
   password: string;
 
+  @OneToOne(() => Image, image => image.imageId)
   @Column({
     name: 'avatar_id',
     type: 'integer',
-    nullable: true,
   })
   avatarId: number;
 }
