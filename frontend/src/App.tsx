@@ -31,7 +31,7 @@ function App() {
           />
           <Route path='/adminpanel'
             element={
-              <ProtectedRoute role={['admin']} redirectPath={'/'}>
+              <ProtectedRoute role={['admin']} redirectPath={'/login'}>
                 <Layout><AdminPanel /></Layout>
               </ProtectedRoute>
             }

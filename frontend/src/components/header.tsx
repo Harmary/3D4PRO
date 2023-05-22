@@ -1,23 +1,35 @@
 import Logo from '../assets/Logo.svg';
+import { useState, MouseEvent } from 'react';
 import Logo2 from '../assets/logo2.svg';
-import { Button, FormControl, Grid, IconButton, InputAdornment, OutlinedInput } from '@mui/material';
+import { Avatar, Button, FormControl, Grid, IconButton, InputAdornment, Menu, MenuItem, OutlinedInput } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import { WhiteTextField } from './whiteFormControll';
 import MenuNavLink from './menuNavLink';
 import AuthServise from '../services/auth-service';
+import PersonIcon from '@mui/icons-material/Person';
+import theme from '../theme';
 
 type HeaderProps = {
     theme: string;
 }
 
 export default function Header(props: HeaderProps) {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-    const handleLogoutClick = () => { 
+
+    const handleLogoutClick = () => {
         let authService = new AuthServise();
         authService.logout();
-     }
+    }
 
     return <>
         <Grid sx={{ pt: 5, alignItems: "center" }} justifyContent="space-between" container>
@@ -70,8 +82,46 @@ export default function Header(props: HeaderProps) {
                 </Grid>
             </Grid>
             <Grid item>
-                {localStorage.getItem('userGuid') ? <Button component={Link} to="/login" onClick={handleLogoutClick} size='medium' variant='contained'>Выйти</Button> : <Button component={Link} to="/login" size='medium' variant='contained'>Войти</Button>}
-                
+                {localStorage.getItem('userGuid') ?
+                    <>
+                        <IconButton
+                            aria-controls={open ? 'long-menu' : undefined}
+                            aria-expanded={open ? 'true' : undefined}
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                        >
+                            <Avatar
+                                sx={{
+                                    bgcolor: theme.palette.primary.main,
+                                }}
+                            >
+                                <PersonIcon />
+                            </Avatar>
+                        </IconButton>
+                        <Menu
+                            id="long-menu"
+                            MenuListProps={{
+                                'aria-labelledby': 'long-button',
+                            }}
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            PaperProps={{
+                                style: {
+                                    maxHeight: 200,
+                                    width: '15ch',
+                                },
+                            }}
+                        >
+                            <MenuItem href="/account">
+                                <Link to={localStorage.getItem("userRole") === 'admin' ? `/adminpanel` :`/account/${localStorage.getItem("userGuid")}`}>Аккаунт</Link></MenuItem>
+                            <MenuItem>
+                                <Button component={Link} to="/login" onClick={handleLogoutClick} size='medium' variant='contained'>Выйти</Button>
+                            </MenuItem>
+                        </Menu>
+                    </>
+                    : <Button component={Link} to="/login" size='medium' variant='contained'>Войти</Button>}
+
             </Grid>
         </Grid>
     </>

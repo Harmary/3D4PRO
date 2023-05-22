@@ -10,7 +10,7 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
     let location = useLocation();
 
     if (localStorage.getItem("userToken") === null || !props.role.includes(localStorage.getItem('userRole') as string)) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
+        return <Navigate to={props.redirectPath} state={{ from: location }} replace />;
     }
     return props.children;
 }
