@@ -18,10 +18,10 @@ export default function AccountPage() {
 
     useEffect(() => {
         let adminService = new AdminService();
-        adminService.getUserByGuid(guid as string).then((res) => {
-            setUser(res.data)
+        adminService.getUserByGuid(guid as string, role as string).then((res) => {
+            setUser(res.data[0])
         })
-    })
+    },[setUser])
 
     return <>
         <Grid mt={10} container justifyContent={"space-between"}>
@@ -37,7 +37,7 @@ export default function AccountPage() {
                         />
                         <label htmlFor="contained-button-file">
                             <IconButton component="span">
-                                <Avatar sx={{ width: 314, height: 314 }} alt="avatar" src={dummyBoyAvatar} />
+                                <Avatar sx={{ width: 314, height: 314 }} alt="avatar" src={user?.link ? user?.link :dummyBoyAvatar} />
                             </IconButton>
                         </label>
                     </Grid>

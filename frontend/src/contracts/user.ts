@@ -4,5 +4,5 @@ export interface User {
     "login": string,
     "email": string,
     "password": string,
-    "avatarId": string | null
+    "link": string | null
 }
