@@ -14,11 +14,11 @@ export class Image {
   public link: string;
 
   
-  @Column('integer', {
+  @Column('uuid', {
     name: "image_guid"
   })
   @Generated('uuid')
-  public image_guid: number;
+  public image_guid: string;
  
 }
 

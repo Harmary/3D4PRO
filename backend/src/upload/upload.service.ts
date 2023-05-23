@@ -2,9 +2,12 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as JSZip from 'jszip';
 import { Image } from 'src/typeorm/image.entity';
 import { User } from 'src/typeorm/user.entity';
 import { Repository } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
+
 
 @Injectable()
 export class UploadService {
@@ -34,13 +37,27 @@ export class UploadService {
         return this.imageRepository.findOne({ where: { image_id: result.image_id } });
     }
 
-    async uploadModel(token: any, fileName: string, file: Buffer) {
-        return await this.s3Client.send(
-            new PutObjectCommand({
-                Bucket: '373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de',
-                Key: `models/${token.sub}/${fileName}`,
-                Body: file,
-            }),
-        );
+    async uploadModel(req: any, file: Buffer): Promise<string[]> {
+        const zip = new JSZip();
+        const modelGuid = uuidv4();
+        const extractedFiles = await zip.loadAsync(file);
+        const files: string[] = [];
+
+        for (const [path, file] of Object.entries(extractedFiles.files)) {
+            if (!file.dir) {
+                const data = await file.async('nodebuffer');
+                const key = `models/${req['user'].sub}/${modelGuid}/${file.name}`;
+                await this.s3Client.send(
+                    new PutObjectCommand({
+                        Bucket: '373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de',
+                        Key: key,
+                        Body: data,
+                    }),
+                );
+                files.push(key);
+            }
+        }
+
+        return files;
     }
 }

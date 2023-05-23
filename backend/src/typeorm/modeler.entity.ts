@@ -1,8 +1,10 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
+import { Model } from './model.entity';
 
 @Entity('Modeler')
 export class Modeler {
+  @OneToMany(() => Model, (model) => model.modeler_guid)
   @PrimaryGeneratedColumn('uuid',{
     name: 'modeler_guid',
   })

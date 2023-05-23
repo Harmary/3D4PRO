@@ -28,6 +28,11 @@ export class UsersController {
     return await this.userService.getModelers();
   }
 
+  @Get('/GetCategories')
+  async getCategories() {
+    return await this.userService.getCategories();
+  }
+
   @Get('SelectUsers/:guid/:role')
   async findUsersById(@Param('guid') guid: string, @Param('role') role: string) {
     if (role === 'user') return await this.userService.findUsersByGuid(guid);
@@ -71,5 +76,10 @@ export class UsersController {
   @UsePipes(ValidationPipe)
   async createModeler(@Body() createUserDto: CreateUserDto) {
     return await this.userService.createModeler(createUserDto);
+  }
+
+  @Post('AddCategory/:name')
+  async addNewCategory(@Param('name') name: string){
+    return await this.userService.addCategory(name)
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/typeorm';
+import { Category, User } from 'src/typeorm';
 import { Modeler } from 'src/typeorm/modeler.entity';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { Repository } from 'typeorm';
@@ -11,6 +11,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Modeler) private readonly modelerRepository: Repository<Modeler>,
+    @InjectRepository(Category) private readonly categoryRepository: Repository<Category>,
   ) {}
 
   createUser(createUserDto: CreateUserDto) {
@@ -32,8 +33,18 @@ export class UsersService {
     return this.userRepository.find();
   }
 
+  addCategory(name: string) {
+    const category = new Category();
+    category.name = name;
+    return this.categoryRepository.save(category);
+  }
+
   getModelers() {
     return this.modelerRepository.find();
+  }
+
+  getCategories() {
+    return this.categoryRepository.find();
   }
 
   deleteUser(guid: string) {
