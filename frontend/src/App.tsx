@@ -11,6 +11,7 @@ import AccountPage from './pages/account/account';
 import AdminPanel from './pages/adminpanel/adminPanel';
 import AddNewModelForm from './pages/addModel/addNewModelForm';
 import ProtectedRoute from './components/common/protectedRoute';
+import { FormLayout } from './layout/formsLayout';
 
 
 function App() {
@@ -20,8 +21,8 @@ function App() {
         <Routes>
           <Route path='/' element={<MainPage />} />
           <Route path='/shop' element={<Layout><ShopPage /></Layout>} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/login' element={<FormLayout><LoginPage /></FormLayout>} />
+          <Route path='/register' element={<FormLayout><RegisterPage /></FormLayout>} />
           <Route path='/account/:guid'
             element={
               <ProtectedRoute role={['user', 'modeler']} redirectPath={'/'}>
@@ -39,9 +40,9 @@ function App() {
           <Route path='/addnewmodel'
             element={
               <ProtectedRoute role={['modeler']} redirectPath={'/'}>
-                <Layout>
+                <FormLayout>
                   <AddNewModelForm />
-                </Layout>
+                </FormLayout>
               </ProtectedRoute>
             }
           />

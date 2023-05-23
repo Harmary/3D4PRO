@@ -81,6 +81,7 @@ export default function Header(props: HeaderProps) {
 
                 </Grid>
             </Grid>
+            <Grid item>{localStorage.getItem("userRole") === 'modeler' ? <Button component={Link} to="/addnewmodel" size='small' variant='contained' >Добавить модель</Button> : ""}</Grid>
             <Grid item>
                 {localStorage.getItem('userGuid') ?
                     <>

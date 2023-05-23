@@ -1,5 +1,4 @@
 import { Box, Button, Grid, Typography } from '@mui/material'
-import '../login/login.css'
 import theme from '../../theme'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import AuthServise from '../../services/auth-service';
@@ -32,7 +31,7 @@ export default function RegisterPage() {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams()
     const { control, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver: yupResolver(schema) });
-    
+
     const onSubmit = async (data: FormValues) => {
         let authServise = new AuthServise();
         if (searchParams.get('token') === null) {
@@ -57,42 +56,33 @@ export default function RegisterPage() {
     }
 
     return <>
-        <Box className='login__background'>
-            <div className='abstract1' />
-            <div className='abstract2' />
-            <div className="login__form">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid alignItems={"center"} justifyContent={"center"} container>
-                        <Grid lg={12} item>
-                            <Grid container alignItems={"center"} direction={"column"} rowGap={4}>
-                                <Typography color={theme.palette.primary.contrastText} variant="h4">
-                                    Регистрация
-                                </Typography>
-                                <Grid direction={"column"} rowSpacing={2} container>
-                                    <Grid item>
-                                        <WhiteTextInput control={control} errors={errors.name} name={'name'} label={'Имя'} />
-                                    </Grid>
-                                    <Grid item>
-                                        <WhiteTextInput control={control} errors={errors.email} name={'email'} label={'Email'}/>
-                                    </Grid>
-                                    <Grid item>
-                                        <WhiteTextInput control={control} errors={errors.login} name={'login'} label={'Логин'} />
-                                    </Grid>
-                                    <Grid item>
-                                        <WhitePasswordInput control={control} errors={errors.password} label={'Пароль'} name={'password'}/>
-                                    </Grid>
-                                    <Grid item>
-                                        <WhitePasswordInput control={control} errors={errors.passwordConfirmation} label={'Повтор пароля'} name={'passwordConfirmation'} />
-                                    </Grid>
-                                </Grid>
-                                <Grid direction={"column"} rowGap={2} alignItems={"center"} container>
-                                    <Button size='large' type='submit' fullWidth variant="contained">Зарегистрироваться</Button>
-                                </Grid>
-                            </Grid>
-                        </Grid>
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container alignItems={"center"} direction={"column"} rowGap={4}>
+                <Typography color={theme.palette.primary.contrastText} variant="h4">
+                    Регистрация
+                </Typography>
+                <Grid direction={"column"} rowSpacing={2} container>
+                    <Grid item>
+                        <WhiteTextInput control={control} errors={errors.name} name={'name'} label={'Имя'} />
                     </Grid>
-                </form>
-            </div>
-        </Box >
+                    <Grid item>
+                        <WhiteTextInput control={control} errors={errors.email} name={'email'} label={'Email'} />
+                    </Grid>
+                    <Grid item>
+                        <WhiteTextInput control={control} errors={errors.login} name={'login'} label={'Логин'} />
+                    </Grid>
+                    <Grid item>
+                        <WhitePasswordInput control={control} errors={errors.password} label={'Пароль'} name={'password'} />
+                    </Grid>
+                    <Grid item>
+                        <WhitePasswordInput control={control} errors={errors.passwordConfirmation} label={'Повтор пароля'} name={'passwordConfirmation'} />
+                    </Grid>
+                </Grid>
+                <Grid direction={"column"} rowGap={2} alignItems={"center"} container>
+                    <Button size='large' type='submit' fullWidth variant="contained">Зарегистрироваться</Button>
+                </Grid>
+            </Grid>
+        </form>
     </>
 }

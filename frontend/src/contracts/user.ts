@@ -5,4 +5,5 @@ export interface User {
     "email": string,
     "password": string,
     "link": string | null
+    "account": number
 }
