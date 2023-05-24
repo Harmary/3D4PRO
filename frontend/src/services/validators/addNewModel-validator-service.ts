@@ -16,7 +16,8 @@ export class AddNewModelValidator {
             if (!sourceFolder) {
                 throw new Error('Source folder not found');
             }
-            const objFile = Object.values(sourceFolder.files).find((file) => file.name.endsWith('.obj')); if (!objFile) {
+            const objFile = Object.values(sourceFolder.files).find((file) => file.name.endsWith('.obj'));
+            if (!objFile) {
                 throw new Error('Model file not found');
             }
             return objFile.async('string').then((objText) => {

@@ -43,7 +43,7 @@ export default function LoginPage() {
 
     return <>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid container alignItems={"center"} direction={"column"} rowGap={4}>
+            <Grid container alignItems={"center"} direction={"column"} style={{width: 500}} rowGap={4}>
                 <Typography color={theme.palette.primary.contrastText} variant="h4">
                     Добро пожаловать!
                 </Typography>
