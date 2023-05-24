@@ -52,6 +52,7 @@ export class Model {
     @Column({
         name: 'category_id',
         type: 'integer',
+        nullable: true
     })
     categoryId: number;
 
