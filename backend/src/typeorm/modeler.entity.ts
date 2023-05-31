@@ -4,7 +4,7 @@ import { Model } from './model.entity';
 
 @Entity('Modeler')
 export class Modeler {
-  @OneToMany(() => Model, (model) => model.modeler_guid)
+  // @OneToMany(() => Model, (model) => model.modeler_guid)
   @PrimaryGeneratedColumn('uuid',{
     name: 'modeler_guid',
   })

@@ -7,8 +7,8 @@ import { Render } from './render.entity';
 
 @Entity('Model')
 export class Model {
-    @OneToMany( () => Render, render => render.model_guid)
-    @OneToMany( () => Texture, texture => texture.model_guid)
+    // @OneToMany( () => Render, render => render.model_guid)
+    // @OneToMany( () => Texture, texture => texture.model_guid)
     @PrimaryGeneratedColumn('uuid', {
         name: 'guid',
     })
@@ -56,7 +56,7 @@ export class Model {
     })
     categoryId: number;
 
-    @ManyToOne( () => Modeler, modeler => modeler.guid, {onDelete: "CASCADE"})
+    // @ManyToOne( () => Modeler, modeler => modeler.guid, {onDelete: "CASCADE"})
     @Column('uuid', {
         name: "modeler_guid"
     })

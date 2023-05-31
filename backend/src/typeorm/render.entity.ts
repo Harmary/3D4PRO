@@ -16,7 +16,7 @@ export class Render {
     })
     public image_guid: string;
 
-    @ManyToOne(() => Model, model => model.guid, { onDelete: "CASCADE" })
+    // @ManyToOne(() => Model, model => model.guid, { onDelete: "CASCADE" })
     @Column('uuid', {
         name: "model_guid"
     })
