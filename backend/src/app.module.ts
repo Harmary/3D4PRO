@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { MailModule } from './mail/mail.module';
 import { UploadModule } from './upload/upload.module';
+import { ShopModule } from './shop/shop.module';
 import entities from './typeorm';
 
 @Module({
@@ -28,8 +29,7 @@ import entities from './typeorm';
     AuthModule,
     MailModule,
     UploadModule,
+    ShopModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
