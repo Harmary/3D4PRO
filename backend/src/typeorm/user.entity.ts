@@ -43,6 +43,9 @@ export class User {
   @Column({
     name: 'avatar_id',
     type: 'integer',
+    // TODO: In previous version it fails without that line
+    // Can we have a user without an avatar?
+    nullable: true,
   })
   avatarId: number;
 }

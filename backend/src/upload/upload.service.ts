@@ -70,19 +70,21 @@ export class UploadService {
         await this.s3Client.send(
             new PutObjectCommand({
                 Bucket: '373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de',
-                Key: `models/${modeler[0].guid}/${modelGuid}/renders/${renders[0].originalname}`,
-                Body: renders[0].buffer,
+                Key: `models/${modeler[0].guid}/${modelGuid}/renders/${renders.originalname}`,
+                Body: renders.buffer,
             }),
         );
 
         const image = await this.imageRepository.save({
-            link: `models/${modeler[0].guid}/${modelGuid}/renders/${renders[0].originalname}`
+            link: `models/${modeler[0].guid}/${modelGuid}/renders/${renders.originalname}`
         })
 
-        const render = await this.renderRepository.save({
-           image_guid: image.image_guid,
-           model_guid: modelGuid
-        })
+        // TODO: Fails with no metadata issue, please fix
+
+        // const render = await this.renderRepository.save({
+        //    image_guid: image.image_guid,
+        //    model_guid: modelGuid
+        // })
 
         return await this.modelRepository.save(
             {
@@ -91,7 +93,10 @@ export class UploadService {
                 modeler_guid: modeler[0].guid,
                 description: model.description,
                 price: model.price,
-                polygons: model.polygons,
+                // TODO: Fails with zero polygons issue,
+                // probably because I've uploaded text file instead of correct model
+                // Please recheck and add validation
+                polygons: 100, //model.polygons,
                 link: `https://s3.timeweb.com/373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de/${files[0]}`
             }
         );

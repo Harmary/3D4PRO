@@ -54,7 +54,8 @@ export class UploadController {
         return this.uploadService.uploadAvatar(req['user'], file.originalname, file.buffer);
     }
 
-    // @UseGuards(JwtAuthGuard2)
+    // TODO: Rename JwtAuthGuard2 to something better
+    @UseGuards(JwtAuthGuard2)
     @Post('Model')
     @ApiConsumes('multipart/form-data')
     @ApiBody({
@@ -83,10 +84,10 @@ export class UploadController {
         @Body()
         CreateModelDto: CreateModelDto,
         @UploadedFiles()
-        files: {renders?: Express.Multer.File, model: Express.Multer.File},
+        files: {renders?: Express.Multer.File[], model: Express.Multer.File[]},
         @Req() req: Request,
     ) {
-        return await this.uploadService.uploadModel(req, CreateModelDto, files.model, files.renders);
+        return await this.uploadService.uploadModel(req, CreateModelDto, files.model[0], files.renders[0]);
     }
 
     
