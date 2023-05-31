@@ -6,13 +6,17 @@ import {
     UseInterceptors,
     UseGuards,
     Req,
-    Request
+    Request,
+    Body,
+    UploadedFiles,
+    Logger
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { JwtAuthGuard2 } from 'src/auth/jwt/jwt.guard';
 import { Image } from 'src/typeorm/image.entity';
+import { CreateModelDto } from 'src/users/dtos/CreateModel.dto';
 
 
 @Controller('Upload')
@@ -50,34 +54,39 @@ export class UploadController {
         return this.uploadService.uploadAvatar(req['user'], file.originalname, file.buffer);
     }
 
-    @UseGuards(JwtAuthGuard2)
+    // @UseGuards(JwtAuthGuard2)
     @Post('Model')
     @ApiConsumes('multipart/form-data')
     @ApiBody({
         schema: {
             type: 'object',
             properties: {
-                file: {
+                model: {
+                    type: 'string',
+                    format: 'binary',
+                },
+                name: { type: 'string' },
+                description: { type: 'string' },
+                price: { type: 'string' },
+                renders: {
                     type: 'string',
                     format: 'binary',
                 },
             },
         },
     })
-    @UseInterceptors(FileInterceptor('file'))
+    @UseInterceptors(FileFieldsInterceptor([
+        { name: 'model'},
+        { name: 'renders'},
+    ]))
     async uploadModel(
-        @UploadedFile(
-            new ParseFilePipe({
-                validators: [
-                    // new MaxFileSizeValidator({ maxSize: 1000 }),
-                    // new FileTypeValidator({ fileType: 'image/jpeg' }),
-                ],
-            }),
-        )
-        file: Express.Multer.File,
+        @Body()
+        CreateModelDto: CreateModelDto,
+        @UploadedFiles()
+        files: {renders?: Express.Multer.File, model: Express.Multer.File},
         @Req() req: Request,
     ) {
-        return await this.uploadService.uploadModel(req, file.buffer);
+        return await this.uploadService.uploadModel(req, CreateModelDto, files.model, files.renders);
     }
 
     
