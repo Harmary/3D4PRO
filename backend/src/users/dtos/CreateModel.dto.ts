@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, Length} from 'class-validator';
+import { IsNotEmpty, IsNumber, Length} from 'class-validator';
 
 export class CreateModelDto {
     guid: string;
@@ -13,8 +13,10 @@ export class CreateModelDto {
     description: string;
 
     @IsNotEmpty()
+    @IsNumber()
     price: number;
 
     @IsNotEmpty()
+    @IsNumber()
     polygons: number;
 }

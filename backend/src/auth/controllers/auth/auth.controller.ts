@@ -1,6 +1,5 @@
 import { Controller, Post, Body, Param, UseGuards, Get, Req, Request } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard2 } from 'src/auth/jwt/jwt.guard';
 import { AuthService } from 'src/auth/services/auth/auth.service';
 import { User } from 'src/typeorm';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
@@ -10,12 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
-
-  @UseGuards(JwtAuthGuard2)
-  @Get('usertest')
-  async userTest(@Req() request: Request) {
-    return request['user'];
-  }
 
   @Post('login')
   @ApiBody({

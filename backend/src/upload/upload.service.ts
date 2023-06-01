@@ -43,7 +43,7 @@ export class UploadService {
         return this.imageRepository.findOne({ where: { image_id: result.image_id } });
     }
 
-    async uploadModel(req: any, model: CreateModelDto, file: Express.Multer.File, renders: Express.Multer.File) {
+    async uploadModel(req: any, model: CreateModelDto, file: Express.Multer.File, renders: Express.Multer.File[]) {
         const zip = new JSZip();
         const modelGuid = uuidv4();
         const extractedFiles = await zip.loadAsync(file.buffer);
@@ -67,24 +67,24 @@ export class UploadService {
             }
         }
 
-        await this.s3Client.send(
-            new PutObjectCommand({
-                Bucket: '373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de',
-                Key: `models/${modeler[0].guid}/${modelGuid}/renders/${renders.originalname}`,
-                Body: renders.buffer,
-            }),
-        );
+        if (renders !== undefined) {
+            await this.s3Client.send(
+                new PutObjectCommand({
+                    Bucket: '373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de',
+                    Key: `models/${modeler[0].guid}/${modelGuid}/renders/${renders[0].originalname}`,
+                    Body: renders[0].buffer,
+                }),
+            );
 
-        const image = await this.imageRepository.save({
-            link: `models/${modeler[0].guid}/${modelGuid}/renders/${renders.originalname}`
-        })
+            const image = await this.imageRepository.save({
+                link: `models/${modeler[0].guid}/${modelGuid}/renders/${renders[0].originalname}`
+            })
 
-        // TODO: Fails with no metadata issue, please fix
-
-        // const render = await this.renderRepository.save({
-        //    image_guid: image.image_guid,
-        //    model_guid: modelGuid
-        // })
+            const render = await this.renderRepository.save({
+                image_guid: image.image_guid,
+                model_guid: modelGuid
+            })
+        }
 
         return await this.modelRepository.save(
             {
@@ -93,10 +93,7 @@ export class UploadService {
                 modeler_guid: modeler[0].guid,
                 description: model.description,
                 price: model.price,
-                // TODO: Fails with zero polygons issue,
-                // probably because I've uploaded text file instead of correct model
-                // Please recheck and add validation
-                polygons: 100, //model.polygons,
+                polygons: model.polygons,
                 link: `https://s3.timeweb.com/373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de/${files[0]}`
             }
         );

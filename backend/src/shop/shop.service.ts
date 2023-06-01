@@ -15,7 +15,22 @@ export class ShopService {
     ) { }
 
     async getAllModels() {
-        return await this.modelRepository.find()
+        return await this.modelRepository.query(`SELECT DISTINCT "Model".guid, 
+		"Model"."name", 
+		"Model"."description", 
+		"Model"."polygons", 
+		"Model"."link",
+ 		"Category"."name" as "category",
+		"Model"."price",
+		"Model"."loading_date",
+		"User"."name" as "modeler",
+		"Image"."link" as "render"
+        FROM "Model"
+        LEFT JOIN "Category" ON "Model"."category_id" = "Category"."category_id"
+        JOIN "Modeler" ON  "Model"."modeler_guid" = "Modeler"."modeler_guid"
+        JOIN "User" ON "Modeler"."user_guid" = "User"."guid"
+        JOIN "Render" ON "Render"."model_guid" = "Model"."guid"
+        JOIN "Image" ON "Image"."image_guid" = "Render"."image_guid";`)
     }
-    
+
 }

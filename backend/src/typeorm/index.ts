@@ -1,4 +1,4 @@
-import { Render } from '@nestjs/common';
+import { Render } from './render.entity';
 import { Model } from './model.entity';
 import { Modeler } from './modeler.entity';
 import { User } from './user.entity';
