@@ -1,46 +1,30 @@
-import * as THREE from 'three'
-import * as React from 'react'
-import { useRef, useState } from 'react'
-import { useGLTF } from '@react-three/drei/core/useGLTF'
-// import { MeshTransmissionMaterial } from "@react-three/drei/core/MeshTransmissionMaterial";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { easing } from "maath";
+import { Canvas, useLoader } from "react-three-fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Environment, OrbitControls } from "@react-three/drei";
+import { Suspense } from "react";
+import gltfmodel from '../assets/gltf/sourse/home.gltf';
 
 
-function Box(props) {
-  // This reference will give us direct access to the mesh
-  const mesh = useRef();
-  // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (mesh.current.rotation.x += delta));
-  // Return view, these are regular three.js elements expressed in JSX
+const Model = (link) => {
+  const gltf = useLoader(GLTFLoader, gltfmodel);
   return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={active ? 1.5 : 1}
-      onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}
-    >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-    </mesh>
+    <>
+      <primitive object={gltf.scene} scale={5} />
+    </>
+  );
+};
+
+
+function Scene(model) {
+  return (
+    <Canvas style={{ background: "#171717", width: "inherit", height: 500 }}>
+      <Suspense fallback={null}>
+        <Model link={model} />
+        <OrbitControls />
+        <Environment preset='forest' background />
+      </Suspense>
+    </Canvas>
   );
 }
 
-export default function Viewer() {
-    return (
-        <Canvas>
-            <ambientLight intensity={0.5} />
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-            <pointLight position={[-10, -10, -10]} />
-            <Box position={[-1.2, 0, 0]} />
-            <Box position={[1.2, 0, 0]} />
-        </Canvas>
-    )
-}
-
-useGLTF.preload('/pumpkin.glb')
+export default Scene;

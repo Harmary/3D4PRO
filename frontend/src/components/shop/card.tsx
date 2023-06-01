@@ -22,7 +22,7 @@ export default function Card(props: CardProps) {
         <Paper elevation={6} sx={{
             width: 360,
             height: 416,
-            background: `url('${props.model.renders[0].url}') no-repeat`,
+            background: `url('https://s3.timeweb.com/373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de/${props.model.render}') no-repeat`,
             backgroundSize: "cover",
             backgroundPosition: "center center",
             borderRadius: 3

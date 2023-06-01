@@ -1,13 +1,12 @@
 import { Box, Button, Grid, Modal, Typography } from "@mui/material"
 import { Model } from "../../contracts/model"
-import Viewer from "../3dScene";
+import Scene from "../3dScene";
 
 type ModalWindowProps = {
     model: Model,
     open: boolean,
     setOpen: (value: boolean) => void
 }
-
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -17,7 +16,7 @@ const style = {
     bgcolor: 'background.paper',
     boxShadow: 24,
     borderRadius: 3,
-    p: 5,
+    padding: 5,
 };
 
 
@@ -26,7 +25,7 @@ export default function ModalWindow(props: ModalWindowProps) {
     const handleClose = () => {
         props.setOpen(false);
     }
-
+    
     return <>
         <Modal
             open={props.open}
@@ -34,12 +33,12 @@ export default function ModalWindow(props: ModalWindowProps) {
             aria-labelledby="parent-modal-title"
             aria-describedby="parent-modal-description"
         >
-            <Box sx={{ ...style }}>
-                <Grid container spacing={2}>
-                    <Grid md={7} item>
-                        <Viewer />
+            <Box sx={{...style}}>
+                <Grid container spacing={3}>
+                    <Grid md={6} item>
+                        <Scene model={props.model.link}/>
                     </Grid>
-                    <Grid md={5} item>
+                    <Grid md={6} item>
                         <Grid container>
                             <Grid md={11} item>
                                 <Typography variant="h4" id="parent-modal-title">{props.model.name}</Typography>
@@ -50,12 +49,12 @@ export default function ModalWindow(props: ModalWindowProps) {
                                     Текстуры
                                 </Typography>
                                 <Grid container mt={2} columnSpacing={2}>
-                                    {props.model.textures.map((texture, key) => (
+                                    {/* {props.model.textures.map((texture, key) => (
                                         <Grid key={key} item>
                                             <div title={texture.url} style={{ background: "#2CB67D", width: 36, height: 36 }}></div>
                                         </Grid>
 
-                                    ))}
+                                    ))} */}
                                 </Grid>
                             </Grid>
                             <Grid mt={20} md={12} item>

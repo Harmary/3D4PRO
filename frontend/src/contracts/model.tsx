@@ -1,15 +1,14 @@
 export interface Model {
-    "id": number
+    "guid": number
     "name": string,
     "description": string,
     "price": number,
+    "polygons": number,
     "category": string,
     "link": string,
-    "uploadingDate": string,
-    "creatorId": number,
-    "creatorName": string,
-    "renders": Image[],
-    "textures": Image[]
+    "loading_date": string,
+    "modeler": string,
+    "render": string
 }
 
 interface Image {

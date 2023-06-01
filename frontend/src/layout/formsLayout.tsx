@@ -1,5 +1,6 @@
 import { Box, Grid } from "@mui/material";
 import './formsLayout.css'
+
 type LayoutProps = {
     children?: JSX.Element | JSX.Element[];
 };
@@ -18,5 +19,4 @@ export function FormLayout(props: LayoutProps) {
             </div>
         </Box>
     )
-
 }
