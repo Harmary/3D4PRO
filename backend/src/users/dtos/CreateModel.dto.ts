@@ -1,22 +1,20 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsNumber, Length} from 'class-validator';
+import { IsNotEmpty, Length } from 'class-validator';
 
 export class CreateModelDto {
     guid: string;
 
-    @IsNotEmpty()
-    @Length(100)
+    @IsNotEmpty({ message: "Название не может быть пустым" })
+    @Length(1, 100, { message: "Название не может быть больше 100 символов и меньше 1" })
     name: string;
 
     @IsNotEmpty()
-    @Length(100)
+    @Length(0, 300, { message: "Описание не может быть больше 300 символов" })
     description: string;
 
-    @IsNotEmpty()
-    @IsNumber()
+    @IsNotEmpty({ message: "Поле цена не может быть пустым" })
     price: number;
 
-    @IsNotEmpty()
-    @IsNumber()
+    @IsNotEmpty({ message: "Поле полигоны не может быть пустым" })
     polygons: number;
 }

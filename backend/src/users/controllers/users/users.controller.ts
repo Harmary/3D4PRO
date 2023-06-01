@@ -3,20 +3,24 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
+  Req,
+  Request,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { UsersService } from 'src/users/services/users/users.service';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 
 @ApiTags('Admin')
 @Controller('/Admin')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(private readonly userService: UsersService) { }
 
   @Get('/GetAllUsers')
   async getUsers() {
@@ -34,14 +38,17 @@ export class UsersController {
   }
 
   @Get('SelectUsers/:guid/:role')
-  async findUsersById(@Param('guid') guid: string, @Param('role') role: string) {
+  async findUsersById(@Param('guid') guid: string, @Param('role') role: string, @Req() req: Request) {
     if (role === 'user') return await this.userService.findUsersByGuid(guid);
     else return await this.userService.findModelerByGuid(guid)
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('/DeleteUser/:guid')
-  async deleteUserbyGuid(@Param('guid') guid: string) {
-    await this.userService.deleteUser(guid);
+  async deleteUserbyGuid(@Param('guid') guid: string, @Req() req: Request,) {
+    if (req['user'].role === "admin")
+      await this.userService.deleteUser(guid);
+    else return HttpStatus.FORBIDDEN;
   }
 
   @Post('CreateNewUser')
@@ -79,7 +86,7 @@ export class UsersController {
   }
 
   @Post('AddCategory/:name')
-  async addNewCategory(@Param('name') name: string){
+  async addNewCategory(@Param('name') name: string) {
     return await this.userService.addCategory(name)
   }
 }

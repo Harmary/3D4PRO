@@ -9,6 +9,8 @@ import {
     Request,
     Body,
     UploadedFiles,
+    UsePipes,
+    ValidationPipe,
 } from '@nestjs/common';
 import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
@@ -56,6 +58,7 @@ export class UploadController {
     @UseGuards(JwtAuthGuard)
     @Post('Model')
     @ApiConsumes('multipart/form-data')
+    @UsePipes(ValidationPipe)
     @ApiBody({
         schema: {
             type: 'object',
