@@ -21,7 +21,7 @@ export default function AccountPage() {
         adminService.getUserByGuid(guid as string, role as string).then((res) => {
             setUser(res.data[0])
         })
-    },[setUser])
+    }, [setUser])
 
     return <>
         <Grid mt={10} container justifyContent={"space-between"}>
@@ -37,7 +37,7 @@ export default function AccountPage() {
                         />
                         <label htmlFor="contained-button-file">
                             <IconButton component="span">
-                                <Avatar sx={{ width: 314, height: 314 }} alt="avatar" src={user?.link ? user?.link :dummyBoyAvatar} />
+                                <Avatar sx={{ width: 314, height: 314 }} alt="avatar" src={(user?.link !== undefined && user?.link !== null && String(user?.link).length > 10) ? user?.link : dummyBoyAvatar} />
                             </IconButton>
                         </label>
                     </Grid>
@@ -68,8 +68,8 @@ export default function AccountPage() {
                     </Grid>
                 ))}
             </Grid>
-            :""
+            : ""
         }
-        
+
     </>
 }
