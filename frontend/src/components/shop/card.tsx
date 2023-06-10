@@ -27,6 +27,7 @@ export default function Card(props: CardProps) {
             backgroundPosition: "center center",
             borderRadius: 3
         }} >
+            
             <div style={{
                 width: "inherit",
                 height: "inherit", 

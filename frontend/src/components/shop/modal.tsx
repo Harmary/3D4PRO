@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Modal, Typography } from "@mui/material"
 import { Model } from "../../contracts/model"
 import Scene from "../3dScene";
+import './modal.css'
 
 type ModalWindowProps = {
     model: Model,
@@ -36,7 +37,7 @@ export default function ModalWindow(props: ModalWindowProps) {
             <Box sx={{...style}}>
                 <Grid container spacing={3}>
                     <Grid md={6} item>
-                        <Scene model={props.model.link}/>
+                        <Scene link={props.model.link}/>
                     </Grid>
                     <Grid md={6} item>
                         <Grid container>
