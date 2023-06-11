@@ -28,19 +28,15 @@ export class AuthService {
 
   async login(user: any) {
     const authUser = await this.userRepository.findOne({ where: { login: user.login } });
-    if (!this.isPasswordHash(authUser.password) && authUser.password === user.password) {
+    const isMatch = await bcrypt.compare(user.password, authUser.password);
+    if (isMatch) {
       return await this.returnTokenWithRole(authUser, user);
     } else {
-      const isMatch = await bcrypt.compare(user.password, authUser.password);
-      if (isMatch) {
-        return await this.returnTokenWithRole(authUser, user);
-      } else {
-        throw new HttpException('Password is wrong', HttpStatus.UNAUTHORIZED);
-      }
+      throw new HttpException('Password is wrong', HttpStatus.UNAUTHORIZED);
     }
   }
 
-  async returnTokenWithRole(authUser: User, user: any){
+  async returnTokenWithRole(authUser: User, user: any) {
     const modeler = await this.modelerRepository.findOne({ where: { user_guid: authUser.guid } });
     let role;
     if (user.login === 'admin') {
@@ -61,23 +57,19 @@ export class AuthService {
     };
   }
 
-  isPasswordHash(password: string) {
-    const regex = /^\$2[ayb]\$.{56}$/; // Regular expression for bcrypt hashes
-    return regex.test(password);
-  };
-
+  
   async registerUser(
     user: CreateUserDto,
     isHasToken: boolean
   ): Promise<{ user: User; token?: string }> {
     const existingUser = await this.userRepository.findOne({ where: { login: user.login } });
-    if(!!existingUser) {
+    if (!!existingUser) {
       throw new HttpException('User with this login is exist', HttpStatus.UNAUTHORIZED);
     }
     if (isHasToken) {
       const saltOrRounds = 10;
       const hash = await bcrypt.hash(user.password, saltOrRounds);
-      const savedUser = await this.userRepository.save({...user, password: hash});
+      const savedUser = await this.userRepository.save({ ...user, password: hash });
       const modeler = new Modeler();
       modeler.user_guid = user.guid;
       modeler.account = 0;

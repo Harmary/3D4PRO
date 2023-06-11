@@ -25,7 +25,7 @@ export class AuthController {
   }
  
 
-  @Post('register/:isHasToken')
+  @Post('register')
   @UsePipes(ValidationPipe)
   @ApiBody({
     schema: {
@@ -41,10 +41,10 @@ export class AuthController {
   })
   async registerUser(
     @Body() createUserDto: CreateUserDto, 
-    @Param('isHasToken') isHasToken: boolean
+    @Req() req: Request,
   ): Promise<{ user: User; token?: string }> {
     createUserDto.guid = uuidv4();
-    const registeredUser = await this.authService.registerUser(createUserDto, isHasToken);
+    const registeredUser = await this.authService.registerUser(createUserDto, !req['user']);
     return registeredUser;
   }
 
