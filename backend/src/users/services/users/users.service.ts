@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category, User } from 'src/typeorm';
+import { Category, Model, User } from 'src/typeorm';
 import { Modeler } from 'src/typeorm/modeler.entity';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { Repository } from 'typeorm';
@@ -11,6 +11,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Modeler) private readonly modelerRepository: Repository<Modeler>,
+    @InjectRepository(Model) private readonly modelRepository: Repository<Model>,
     @InjectRepository(Category) private readonly categoryRepository: Repository<Category>,
   ) {}
 
@@ -55,7 +56,9 @@ export class UsersService {
     return this.userRepository.query(`SELECT "User".name, "User".guid, "User".email, "User".login, "Image".link FROM "User", "Image" WHERE "User".avatar_id = "Image".image_id AND "User".guid = '${guid}'`);;
   }
 
-  findModelerByGuid(guid: string) {
-    return this.userRepository.query(`SELECT "User".name, "User".email, "User".login, "Image".link, "Modeler".account FROM "User", "Modeler", "Image" WHERE "User".guid = "Modeler".user_guid AND "User".avatar_id = "Image".image_id AND "Modeler".user_guid = '${guid}'`);
+   findModelerByGuid(guid: string) {
+    const infoAboutModeler = this.userRepository.query(`SELECT "User".name, "User".email, "User".login, "Image".link, "Modeler".account FROM "User", "Modeler", "Image" WHERE "User".guid = "Modeler".user_guid AND "User".avatar_id = "Image".image_id AND "Modeler".user_guid = '${guid}'`);
+    const models = this.modelRepository.find({where: {modeler_guid: guid}});
+    return {...infoAboutModeler, models: models}
   }
 }
