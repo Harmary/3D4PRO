@@ -13,7 +13,7 @@ export class UsersService {
     @InjectRepository(Modeler) private readonly modelerRepository: Repository<Modeler>,
     @InjectRepository(Model) private readonly modelRepository: Repository<Model>,
     @InjectRepository(Category) private readonly categoryRepository: Repository<Category>,
-  ) {}
+  ) { }
 
   createUser(createUserDto: CreateUserDto) {
     const newUser = this.userRepository.create(createUserDto);
@@ -56,9 +56,12 @@ export class UsersService {
     return this.userRepository.query(`SELECT "User".name, "User".guid, "User".email, "User".login, "Image".link FROM "User", "Image" WHERE "User".avatar_id = "Image".image_id AND "User".guid = '${guid}'`);;
   }
 
-   findModelerByGuid(guid: string) {
-    const infoAboutModeler = this.userRepository.query(`SELECT "User".name, "User".email, "User".login, "Image".link, "Modeler".account FROM "User", "Modeler", "Image" WHERE "User".guid = "Modeler".user_guid AND "User".avatar_id = "Image".image_id AND "Modeler".user_guid = '${guid}'`);
-    const models = this.modelRepository.find({where: {modeler_guid: guid}});
-    return {...infoAboutModeler, models: models}
+  async findModelerByGuid(guid: string) {
+    const infoAboutModeler = await this.userRepository.query(`SELECT "User".name, "User".email, "User".login, "Modeler".account, "Image".link
+                                            FROM "User"
+                                            JOIN "Modeler" ON "User".guid = "Modeler".user_guid and "Modeler".user_guid = '${guid}'
+                                            JOIN "Image" ON "User".avatar_id = "Image".image_id;`);
+    const models = await this.modelRepository.find({ where: { modeler_guid: guid } });
+    return [{ infoAboutModeler, models: models }];
   }
 }
