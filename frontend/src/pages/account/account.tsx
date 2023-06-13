@@ -1,7 +1,6 @@
 import { Avatar, Button, Grid, IconButton, Typography } from "@mui/material";
 import dummyGirlAvatar from "../../assets/images/dummygirlavatar.png"
 import dummyBoyAvatar from "../../assets/images/dummyboyavatar.png"
-import fakeData from "../../hardcoded_data/models.json"
 import { Model } from "../../contracts/model";
 import Card from "../../components/shop/card";
 import { useParams } from "react-router-dom";
@@ -9,7 +8,6 @@ import { useEffect, useState } from "react";
 import AdminService from "../../services/admin-service";
 import { User } from "../../contracts/user";
 
-const MODELS = JSON.parse(JSON.stringify(fakeData))
 
 export default function AccountPage() {
     let { guid } = useParams();
@@ -37,7 +35,7 @@ export default function AccountPage() {
                         />
                         <label htmlFor="contained-button-file">
                             <IconButton component="span">
-                                <Avatar sx={{ width: 314, height: 314 }} alt="avatar" src={(user?.link !== undefined && user?.link !== null && String(user?.link).length > 10) ? user?.link : dummyBoyAvatar} />
+                                <Avatar sx={{ width: 314, height: 314 }} alt="avatar" src={(user?.link !== undefined && user?.link !== null && String(user?.link).length > 10) ? user?.link : dummyGirlAvatar} />
                             </IconButton>
                         </label>
                     </Grid>
@@ -62,7 +60,7 @@ export default function AccountPage() {
         </Grid>
         {role === 'modeler' ?
             <Grid container columnSpacing={4} rowSpacing={4} mt={6} mb={6}>
-                {MODELS.map((model: Model, key: number) => (
+                {user?.models.map((model: Model, key: number) => (
                     <Grid key={key} item>
                         <Card key={key} model={model} accountOptions={["Удалить", "Изменить"]} />
                     </Grid>
