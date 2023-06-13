@@ -61,7 +61,22 @@ export class UsersService {
                                             FROM "User"
                                             JOIN "Modeler" ON "User".guid = "Modeler".user_guid and "Modeler".user_guid = '${guid}'
                                             JOIN "Image" ON "User".avatar_id = "Image".image_id;`);
-    const models = await this.modelRepository.find({ where: { modeler_guid: guid } });
-    return [{ infoAboutModeler, models: models }];
+    const models = await this.modelRepository.query(`SELECT DISTINCT "Model".guid, 
+        "Model"."name", 
+        "Model"."description", 
+        "Model"."polygons", 
+        "Model"."link",
+        "Category"."name" as "category",
+        "Model"."price",
+        "Model"."loading_date",
+        "User"."name" as "modeler",
+        "Image"."link" as "render"
+        FROM "Model"
+        LEFT JOIN "Category" ON "Model"."category_id" = "Category"."category_id"
+        JOIN "Modeler" ON  "Model"."modeler_guid" = "Modeler"."modeler_guid" AND "Modeler"."user_guid" = '${guid}'
+        JOIN "User" ON "Modeler"."user_guid" = "User"."guid"
+        JOIN "Render" ON "Render"."model_guid" = "Model"."guid"
+        JOIN "Image" ON "Image"."image_guid" = "Render"."image_guid";`);
+    return [{ ...infoAboutModeler[0], models: models }];
   }
 }
