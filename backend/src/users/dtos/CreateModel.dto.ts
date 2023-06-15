@@ -4,6 +4,8 @@ import { IsNotEmpty, Length } from 'class-validator';
 export class CreateModelDto {
     guid: string;
 
+    category: number;
+
     @IsNotEmpty({ message: "Название не может быть пустым" })
     @Length(1, 100, { message: "Название не может быть больше 100 символов и меньше 1" })
     name: string;

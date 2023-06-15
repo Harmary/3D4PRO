@@ -94,6 +94,7 @@ export class UploadService {
                 description: model.description,
                 price: model.price,
                 polygons: model.polygons,
+                category_id: model.category,
                 link: `https://s3.timeweb.com/373825a7-49aec453-9ac5-487f-a13b-54d1d68bc0de/${files[0]}`
             }
         );
