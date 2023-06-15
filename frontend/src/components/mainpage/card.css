@@ -1,0 +1,11 @@
+ .card{
+    position: "relative";
+    z-index: 1,
+ }
+ 
+.card > :not(style) {
+     width: inherit; 
+     height: 416px; 
+     border-radius: 24px; 
+     background: linear-gradient(180deg, #C4B8EB 0%, #7F5AF0 100%);
+}

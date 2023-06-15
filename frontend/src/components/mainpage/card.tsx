@@ -1,6 +1,7 @@
 import { Paper, Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import "./card.css"
 
 type CardProps = {
     title: string;
@@ -12,7 +13,7 @@ const style = { position: "relative", zIndex: 1, '& > :not(style)': { width: "in
 
 export default function Card(props: CardProps) {
     return <>
-        <Box sx={{...style}}>
+        <div className="card">
             <Paper elevation={5} >
                 <Grid container padding={"44px"} direction={"column"} rowSpacing={"16px"}>
                     <Grid item>
@@ -26,7 +27,7 @@ export default function Card(props: CardProps) {
                     </Grid>
                 </Grid>
             </Paper>
-        </Box>
+        </div>
         
     </>
 };

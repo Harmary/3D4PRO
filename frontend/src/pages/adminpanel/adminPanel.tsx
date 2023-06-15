@@ -59,10 +59,20 @@ export default function AdminPanel() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <div style={{
+                    position: 'absolute' as 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 500,
+                    backgroundColor: 'white',
+                    borderRadius: 20,
+                    boxShadow: "24px",
+                    padding: 30,
+                }}>
                     <form onSubmit={handleInviteModeler}>
-                        <Grid container direction={"column"} alignItems={"center"}>
-                            <Typography mb={2} variant="body1">Введите email для отправки приглашения</Typography>
+                        <Grid container direction={"column"} rowGap={2} alignItems={"center"}>
+                            <Typography variant="body1">Введите email для отправки приглашения</Typography>
                             <Grid container gap={2} justifyContent={"center"}>
                                 <TextField
                                     name="email"
@@ -72,10 +82,10 @@ export default function AdminPanel() {
                                 />
                                 <Button variant="contained" type="submit">Отправить</Button>
                             </Grid>
-                            {alertOpen && <Alert severity="success">Письмо отправлено</Alert>}
+                            {alertOpen && <Alert sx={{width: "80%"}} severity="success">Письмо отправлено</Alert>}
                         </Grid>
                     </form>
-                </Box>
+                </div>
             </Modal>
         </Grid>
         <Grid container mt={10}>
