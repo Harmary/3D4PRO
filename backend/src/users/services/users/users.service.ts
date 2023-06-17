@@ -71,6 +71,7 @@ export class UsersService {
         "Model"."variants",
         "Model"."loading_date",
         "User"."name" as "modeler",
+        "User"."guid" as "modelerGuid",
         "Image"."link" as "render"
         FROM "Model"
         LEFT JOIN "Category" ON "Model"."category_id" = "Category"."category_id"

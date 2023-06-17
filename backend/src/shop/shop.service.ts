@@ -25,7 +25,8 @@ export class ShopService {
  		"Category"."name" as "category",
 		"Model"."price",
 		"Model"."loading_date",
-		"User"."name" as "modeler",
+		"User"."name" as "modelerName",
+		"User"."guid" as "modelerGuid",
 		"Image"."link" as "render"
         FROM "Model"
         LEFT JOIN "Category" ON "Model"."category_id" = "Category"."category_id"
