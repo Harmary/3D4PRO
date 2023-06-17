@@ -44,7 +44,7 @@ export default function Card(props: CardProps) {
                     <Grid item>
                         <Grid container direction={"column"}>
                             <Grid item><Typography color="primary.contrastText" variant='subtitle1'>{props.model.name}</Typography></Grid>
-                            <Grid item><Typography color="primary.contrastText" variant='caption'>{props.model.price}$</Typography></Grid>
+                            <Grid item><Typography color="primary.contrastText" variant='caption'>{props.model.price} ₽</Typography></Grid>
                         </Grid>
                     </Grid>
                     <Grid item>

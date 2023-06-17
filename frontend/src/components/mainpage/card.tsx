@@ -9,7 +9,6 @@ type CardProps = {
     text: string
 }
 
-const style = { position: "relative", zIndex: 1, '& > :not(style)': { width: "inherit", height: "416px", borderRadius: "24px", background: "linear-gradient(180deg, #C4B8EB 0%, #7F5AF0 100%)" } }
 
 export default function Card(props: CardProps) {
     return <>

@@ -7,8 +7,10 @@ export interface Model {
     "category": string,
     "link": string,
     "loading_date": string,
-    "modeler": string,
+    "modelerName": string,
+    "modelerGuid": string,
     "render": string
+    "variants": string[]
 }
 
 interface Image {

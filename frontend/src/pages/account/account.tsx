@@ -51,7 +51,7 @@ export default function AccountPage() {
             {role === 'modeler' ?
                 <Grid item>
                     <Grid container direction={"column"} alignItems={"end"} mt={9} gap={7}>
-                        <Grid item><Typography color={'#72757E'} variant="caption">На счету:</Typography><Typography variant="subtitle1">{user?.account}$</Typography></Grid>
+                        <Grid item><Typography color={'#72757E'} variant="caption">На счету:</Typography><Typography variant="subtitle1">{user?.account}₽</Typography></Grid>
                         <Grid item><Button variant="contained">Вывести</Button></Grid>
                     </Grid>
                 </Grid>
