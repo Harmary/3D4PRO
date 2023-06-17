@@ -9,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup";
 import WhiteTextInput from "../../components/common/formInputs/whiteTextInput";
 import WhiteTextAria from "../../components/common/formInputs/WhiteTextArea";
+import AdminService from "../../services/admin-service";
 
 
 type FormValues = {
@@ -47,7 +48,10 @@ export default function AddNewModelForm() {
     };
 
     useEffect(() => {
-
+        const adminService = new AdminService();
+        adminService.getCategories().then( res =>
+            setCategories(res.data)
+        )
     }, [setCategories]);
 
     const handleChangeFileInput = (event: any) => {
@@ -59,25 +63,30 @@ export default function AddNewModelForm() {
 
     const handleFirstSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const validator = new AddNewModelValidator();
-        setIsButtonLoading(true)
-        await validator.addNewModel(model as File).then((num) => {
-            if (category === "0") {
-                num > 15000 ? console.log(`${num} polygons: it's too big`) : setCurrentStep(2);
-            } else {
-                setCurrentStep(2);
-            }
-        })
+        if (category === "1") {
+            const validator = new AddNewModelValidator();
+            setIsButtonLoading(true)
+            await validator.addNewModel(model as File).then((num) => {
+                    num > 15000 ? console.log(`${num} polygons: it's too big`) : setCurrentStep(2);
+            })
+        } else {
+            setCurrentStep(2);
+        }
+        
         setIsHasFile(false)
         setIsButtonLoading(false)
     };
 
     const handleSecondSubmit = async (data: FormValues) => {
-        console.log({
+        const adminService = new AdminService();
+        adminService.sendModel({
             data,
             model: model,
-            render: render,
-            category: category
+            renders: render,
+            category: Number(category),
+            polygons: 6
+        }).then(res => {
+            console.log(res.data)
         })
     };
 
@@ -97,7 +106,9 @@ export default function AddNewModelForm() {
                             onChange={handleChangeCategory}
                             placeholder="Выберите категорию"
                         >
-                            <MenuItem value="0">Низкополигональные</MenuItem>
+                            {categories?.map((categ, key) => 
+                                <MenuItem key={key} value={categ.category_id}>{categ.name}</MenuItem>
+                            )}
                         </Select>
                     </WhiteTextField>
                     <input
