@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Model, Modeler, User, Image } from 'src/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
+import { BuyModelDto } from 'src/users/dtos/buyModel.dto';
 
 @Injectable()
 export class ShopService {
@@ -20,6 +21,7 @@ export class ShopService {
 		"Model"."description", 
 		"Model"."polygons", 
 		"Model"."link",
+		"Model"."variants",
  		"Category"."name" as "category",
 		"Model"."price",
 		"Model"."loading_date",
@@ -31,6 +33,13 @@ export class ShopService {
         JOIN "User" ON "Modeler"."user_guid" = "User"."guid"
         JOIN "Render" ON "Render"."model_guid" = "Model"."guid"
         JOIN "Image" ON "Image"."image_guid" = "Render"."image_guid";`)
+    }
+
+    async buyModel(data: BuyModelDto) {
+        return await this.modelerRepository.query(`
+        UPDATE "Modeler" SET account = account  + ${data.modelPrice}
+        WHERE user_guid = '${data.modelerUuid}';
+        `);
     }
 
 }

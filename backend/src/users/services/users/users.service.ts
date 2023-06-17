@@ -68,6 +68,7 @@ export class UsersService {
         "Model"."link",
         "Category"."name" as "category",
         "Model"."price",
+        "Model"."variants",
         "Model"."loading_date",
         "User"."name" as "modeler",
         "Image"."link" as "render"

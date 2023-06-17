@@ -74,5 +74,12 @@ export class Model {
         default: new Date(),
         type:'date',
     })
-    loading_date: string
+    loading_date: string;
+
+    @Column("text",{
+        name:'variants',
+        array: true,
+        nullable: true
+    })
+    variants: string[];
 }

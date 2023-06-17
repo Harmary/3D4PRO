@@ -14,13 +14,14 @@ import {
 } from '@nestjs/common';
 import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
-import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { Image } from 'src/typeorm/image.entity';
 import { CreateModelDto } from 'src/users/dtos/CreateModel.dto';
 
 
 @Controller('Upload')
+@ApiTags('Upload')
 export class UploadController {
     constructor(private readonly uploadService: UploadService) { }
 
