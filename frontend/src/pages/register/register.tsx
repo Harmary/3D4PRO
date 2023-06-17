@@ -40,7 +40,6 @@ export default function RegisterPage() {
                 data.login,
                 data.email,
                 data.password,
-                false,
             )
         } else {
             await authServise.registration(
@@ -48,7 +47,6 @@ export default function RegisterPage() {
                 data.login,
                 data.email,
                 data.password,
-                true,
                 searchParams.get('token') as string
             )
         }
