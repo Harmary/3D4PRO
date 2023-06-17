@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Model, Modeler, User, Image } from 'src/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
-import { BuyModelDto } from 'src/users/dtos/buyModel.dto';
+import { BuyModelDto } from 'src/users/dtos/BuyModel.dto';
 
 @Injectable()
 export class ShopService {

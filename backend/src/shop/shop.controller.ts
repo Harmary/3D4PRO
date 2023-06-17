@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ShopService } from './shop.service';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { BuyModelDto } from 'src/users/dtos/buyModel.dto';
+import { BuyModelDto } from 'src/users/dtos/BuyModel.dto';
 
 @Controller('Shop')
 @ApiTags('Shop')
