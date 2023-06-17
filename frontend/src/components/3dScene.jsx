@@ -1,4 +1,5 @@
 import { startTransition, Suspense } from "react";
+import React, { useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   Center,
@@ -6,13 +7,18 @@ import {
   OrbitControls,
   Environment,
   Sky,
+  useTexture,
 } from "@react-three/drei";
 import * as THREE from "three";
 
 function Model(props) {
-  const { scene } = useGLTF(props.model);
-
-  return <primitive scale={5} object={scene} />;
+  const groupRef = useRef();
+  const { scene, nodes, materials } = useGLTF(props.model);
+  scene.children[0].position.set(0, 0, 0);
+  scene.children[0].rotation.set(0, 0, 0);
+  return (
+    <primitive object={scene}  scale={10}/>
+  );
 }
 
 function Scene(props) {
