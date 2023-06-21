@@ -4,7 +4,7 @@ import { WhiteTextField } from "../whiteFormControll";
 export default function Form() {
     return <>
         <Container>
-            <Box sx={{ height: "auto", p: 8, mt: 24, mb: 24, backgroundColor: "#16161A", borderRadius: 3 }}>
+            <div style={{ height: "auto", padding: "8px", marginTop: "24px", marginBottom: "24px", backgroundColor: "#16161A", borderRadius: "3px" }}>
                 <Grid container direction={"column"} rowSpacing={24}>
                     <Grid item>
                         <Grid container direction={"column"} rowSpacing={4}>
@@ -38,7 +38,7 @@ export default function Form() {
                     </Grid >
                 </Grid>
 
-            </Box>
+            </div>
         </Container>
 
     </>
