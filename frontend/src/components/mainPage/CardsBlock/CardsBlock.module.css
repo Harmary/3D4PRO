@@ -1,0 +1,15 @@
+.CardsBlock__title, .CardsBlock__text {
+    color: var(--black)
+}
+
+.CardsBlock__content {
+    margin-top: 160px;
+}
+
+.CardsBlock__text {
+    margin-top: 25px!important;
+}
+
+.CardsBlock__cards {
+    margin-top: 72px!important;
+}

@@ -1,0 +1,8 @@
+.FormBlock__content {
+    height: "auto";
+    padding: 64px;
+    margin-top: 192px;
+    margin-bottom: 192px;
+    background-color: var(--black);
+    border-radius: 24px;
+}

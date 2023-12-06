@@ -1,0 +1,28 @@
+.CategoriesBlock {
+    height: 744px;
+    background-color: var(--primary-color);
+    margin-top: 232px;
+}
+
+.CategoriesBlock__container {
+    flex-wrap: nowrap!important;
+    overflow: hidden;
+    margin-top: 144px;
+    padding-bottom: 16px;
+    gap: 24px;
+}
+
+.CategoriesBlock__title {
+    display: flex;
+    padding-top: 234px;
+    justify-content: center;
+    color: var(--white);
+    text-align: center!important;
+}
+
+.CategoriesBlock__category {
+    padding: 15px 30px;
+    border-radius: 24px!important;
+    background: var(--primary-gradient);
+    z-index: 1;
+}

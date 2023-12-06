@@ -49,7 +49,7 @@ export default function AdminPanel() {
             <Grid item>
                 <Grid container gap={5}>
                     <Grid item><Typography variant="body1">Количество пользователей: {rows.length}</Typography></Grid>
-                    <Grid item><Typography variant="body1">Количество моделей: {"0"}</Typography></Grid>
+                    <Grid item><Typography variant="body1">Количество моделей: {"3"}</Typography></Grid>
                 </Grid>
             </Grid>
             <Grid item><Button onClick={handleOpen} variant="contained">Пригласить моделлера</Button></Grid>

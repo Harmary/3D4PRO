@@ -1,10 +1,11 @@
-import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
-import { WhiteTextField } from "../whiteFormControll";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { WhiteTextField } from "components/whiteFormControll";
+import styles from './Form.module.css';
 
-export default function Form() {
-    return <>
+export const FormBlock: React.FC = () => {
+    return (
         <Container>
-            <Box sx={{ height: "auto", p: 8, mt: 24, mb: 24, backgroundColor: "#16161A", borderRadius: 3 }}>
+            <div className={styles.FormBlock__content}>
                 <Grid container direction={"column"} rowSpacing={24}>
                     <Grid item>
                         <Grid container direction={"column"} rowSpacing={4}>
@@ -37,9 +38,8 @@ export default function Form() {
                         </form>
                     </Grid >
                 </Grid>
-
-            </Box>
+            </div>
         </Container>
+    );
 
-    </>
 };

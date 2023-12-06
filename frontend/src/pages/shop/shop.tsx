@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import Card from "../../components/shop/card";
+import { Card } from "components/shop/Card/Card";
 import { Model } from "../../contracts/model";
 import fakeData from "../../hardcoded_data/models.json"
 import FilterPanel from "../../components/shop/panel";

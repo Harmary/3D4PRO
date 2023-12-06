@@ -1,0 +1,25 @@
+.Card{
+    position: "relative";
+    z-index: 1,
+ }
+ 
+.Card > :not(style) {
+     width: inherit; 
+     height: 416px; 
+     border-radius: 24px; 
+     background: var(--primary-gradient);
+}
+
+.Card__container {
+   padding: 44px;
+   flex-direction: column;
+}
+
+.Card__image {
+   width: 170px;
+   height: 170px;
+}
+
+.Card__title, .Card__text {
+   color: var(--white);
+}

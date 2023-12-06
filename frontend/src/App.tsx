@@ -1,8 +1,11 @@
 import { ThemeProvider } from '@emotion/react';
 import { Route, Routes } from 'react-router';
+
 import './App.css';
+import 'styles/variables.css';
+
 import { Layout } from './layout/layout';
-import MainPage from './pages/main/main';
+import {MainPage} from 'pages/MainPage';
 import theme from './theme'
 import ShopPage from './pages/shop/shop';
 import LoginPage from './pages/login/login';

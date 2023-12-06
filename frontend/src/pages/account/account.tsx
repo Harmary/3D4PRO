@@ -2,7 +2,7 @@ import { Avatar, Button, Grid, IconButton, Typography } from "@mui/material";
 import dummyGirlAvatar from "../../assets/images/dummygirlavatar.png"
 import dummyBoyAvatar from "../../assets/images/dummyboyavatar.png"
 import { Model } from "../../contracts/model";
-import Card from "../../components/shop/card";
+import {Card} from "../../components/shop/Card/Card";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AdminService from "../../services/admin-service";

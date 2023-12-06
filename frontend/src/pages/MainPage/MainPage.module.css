@@ -1,0 +1,48 @@
+ .MainPage {
+    position: relative;
+    overflow: hidden;
+ }
+ 
+ .abstractImg {
+     background-size: 100%;
+     position: absolute;
+     z-index: 0;
+ }
+
+ @media (max-width: 1200px) {
+     .abstractImg {
+         display: none;
+     }
+ }
+
+ .abstract1 {
+     background: url('assets/images/abstract1.png') no-repeat;
+     width: 700px;
+     height: 700px;
+     left: 5px;
+     top: -16px;
+ }
+
+ .abstract2 {
+     background: url('assets/images/abstract2.png') no-repeat;
+     width: 700px;
+     height: 800px;
+     right: 0px;
+     top: 275px;
+ }
+
+ .abstract4 {
+     background: url('assets/images/abstract2.png') no-repeat;
+     width: 989px;
+     height: 909px;
+     right: -281px;
+     top: 2158px;
+ }
+
+ .abstract3 {
+     background: url('assets/images/abstract_3.png') no-repeat;
+     width: 1007px;
+     height: 987px;
+     left: -351px;
+     top: 1252px;
+ }
