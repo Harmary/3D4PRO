@@ -25,9 +25,19 @@ services:
       - "./letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
+  frontend: # Имя сервиса
+    image: ghcr.io/harmary/3d4pro:main-frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`3d4pro.team418.ru`)"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=myresolver"
+    # Сервис будет запущен, только после старта backend
+    depends_on:
+      - backend
+
   backend: # Имя сервиса
-    # image: ghcr.io/harmary/3d4pro:sha256-29873ed1bac1e0ca2ea4810fa76f4eff3d78402d63691da5ee9aa8188087fd9a.sig
-    image: ghcr.io/harmary/3d4pro:main
+    image: ghcr.io/harmary/3d4pro:main-backend
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`api.3d4pro.team418.ru`)"
